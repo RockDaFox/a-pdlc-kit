@@ -1,6 +1,6 @@
-# Product — Ag-PDLC Kit
+# Product — A-PDLC Kit
 
-> Product document: what Ag-PDLC Kit does and why, as delivered. **Written
+> Product document: what A-PDLC Kit does and why, as delivered. **Written
 > 2026-09-14 alongside the first version of the plugin, revised 2026-09-16** —
 > not by reading the code and history, which did not exist yet. The sections
 > describe what ships; the gap between intent and delivered is for a later
@@ -13,7 +13,7 @@
 
 ## 1. Executive summary
 
-Ag-PDLC Kit is the toolbox of a product team working with AI agents. Its
+A-PDLC Kit is the toolbox of a product team working with AI agents. Its
 users are developers, and also the roles that write no code — a product
 owner, a delivery lead, a designer. It covers the product development life
 cycle, of which building the software is one part
@@ -46,7 +46,7 @@ files sits in one, and the others link to it.
 The second invariant is that **records are written forward**. What is readable
 from the code — state — can be generated at any time. What is not — why one
 option won over another — is only recorded at the moment it is decided.
-Ag-PDLC Kit never backfills
+A-PDLC Kit never backfills
 ([ADR-0004](adr/0004-decision-records-are-written-forward.md)).
 
 The discipline is the first family in the toolbox and not the whole of it: what
@@ -54,31 +54,31 @@ the kit is for is wider than what it currently ships. What ships is below and
 in section 3; what is deliberately absent, with the condition that would bring
 it in, is in section 5.
 
-Implementation status: six skills — `pdlc-init` (bootstrap),
-`pdlc-feature` (record a decision that arrives with code), `pdlc-decide`
-(record one that does not), `pdlc-build` (carry out the work a spec
-authorises, test-first), `pdlc-review` (hold the result to a standard
-before it is committed) and `pdlc-report` (report on the project to readers
+Implementation status: six skills — `a-pdlc-init` (bootstrap),
+`a-pdlc-feature` (record a decision that arrives with code), `a-pdlc-decide`
+(record one that does not), `a-pdlc-build` (carry out the work a spec
+authorises, test-first), `a-pdlc-review` (hold the result to a standard
+before it is committed) and `a-pdlc-report` (report on the project to readers
 outside the repository) — four templates, and a shared reference of five
 files: three for the documentation discipline, each skill loading only the
 ones it uses ([ADR-0010](adr/0010-shared-reference-split-by-need.md)), one
-for the build loop, read by `pdlc-build`, by `pdlc-feature` at its own step 6,
-and by `pdlc-review` once corrections are selected, and one read only in a
+for the build loop, read by `a-pdlc-build`, by `a-pdlc-feature` at its own step 6,
+and by `a-pdlc-review` once corrections are selected, and one read only in a
 repository that keeps its feature specs in OpenSpec (section 3.10). The product itself is
 Markdown, two JSON manifests and one shell script: the AI-notice check that
-`pdlc-init` offers to install as a pre-commit hook
+`a-pdlc-init` offers to install as a pre-commit hook
 ([ADR-0019](adr/0019-the-kit-ships-one-check-that-runs-on-a-documented-repository.md)). The repository also carries one maintainer-side check
 script, which is not product surface and which no skill invokes.
 
 ## 2. Users
 
-- **The developer installing Ag-PDLC Kit** on an existing repository. They run
-  `pdlc-init` once, read what came out, correct it, commit it.
+- **The developer installing A-PDLC Kit** on an existing repository. They run
+  `a-pdlc-init` once, read what came out, correct it, commit it.
 - **The rest of the product team** — a product owner, a delivery lead, a
   designer. The kit is for them as much as for the developer. A skill meant
   for them needs no coding agent and no repository, and targets the AI tools
   these roles use (section 3.9). Five of the six skills serve the software
-  part of the cycle, for developers and their coding agent. `pdlc-report` is
+  part of the cycle, for developers and their coding agent. `a-pdlc-report` is
   the first built for these roles.
 - **The agent** that works on the repository afterwards. It is both the
   first reader of the four documents — the reason they are structured rather
@@ -86,14 +86,14 @@ script, which is not product surface and which no skill invokes.
   instruction addressed to it, not a program run beside it.
 - **The human newcomer**, reading the same files for the same reasons.
 
-No roles, no accounts, no notion of a team in the product: Ag-PDLC Kit is a
+No roles, no accounts, no notion of a team in the product: A-PDLC Kit is a
 set of files in a repository.
 
 ## 3. Functional behavior
 
 ### 3.1 Bootstrap documentation on an existing repository
 
-The `pdlc-init` skill reads a repository's code and git history, then
+The `a-pdlc-init` skill reads a repository's code and git history, then
 writes `AGENTS.md` and `PRODUCT.md`. It describes what is actually delivered,
 never what an old ticket announced.
 
@@ -127,7 +127,7 @@ is the only thing the skill offers
 
 ### 3.2 Record a feature's decisions
 
-The `pdlc-feature` skill takes an informal request and builds it, keeping the
+The `a-pdlc-feature` skill takes an informal request and builds it, keeping the
 record of what it decides. The sequence: read the repo, list the open points,
 ask in as few rounds as possible, write the spec — decisions taken,
 alternatives rejected with their reason, expected behavior as numbered
@@ -163,7 +163,7 @@ work or vanishing.
 
 ### 3.3 Record a decision that produces no code
 
-The `pdlc-decide` skill records a decision taken outside an implementation: a
+The `a-pdlc-decide` skill records a decision taken outside an implementation: a
 technical foundation chosen before anything is built, an architecture approved
 before work is split, a boundary drawn, a dependency the repository agrees to
 carry. Those have no commit to ride along on, which is why they went
@@ -187,7 +187,7 @@ behaviors are the point rather than the implementation:
 
 ### 3.4 Build a spec, test-first
 
-The `pdlc-build` skill turns a spec into code, tests and an evidence block.
+The `a-pdlc-build` skill turns a spec into code, tests and an evidence block.
 It derives at least one test per numbered line of the spec's Behavior
 section, adds the edge cases it finds worth a test, names the line each
 covers, writes it against the result that line states, runs it, confirms it
@@ -197,12 +197,12 @@ commands and reports what ran, one row per Behavior line with its test, and
 what it left ([ADR-0017](adr/0017-a-spec-states-its-behavior-as-testable-lines.md)).
 
 Two entry points reach that loop for a build, stated once in
-`skills/_pdlc-shared/build-loop.md`: inside `pdlc-feature`, at its own step 6,
+`skills/_pdlc-shared/build-loop.md`: inside `a-pdlc-feature`, at its own step 6,
 on the spec the go-ahead was just given on; and standalone, on a scope settled
 elsewhere — a `Draft` spec committed earlier, a ticket, a bug with a known
 cause. Standalone, the skill also routes what the build decided through the
 scope, reversal-cost and lifetime tests and writes the spec entry or the ADR
-they select; inside `pdlc-feature`, that reconciliation stays with that
+they select; inside `a-pdlc-feature`, that reconciliation stays with that
 skill's own step 7.
 
 Test, lint, typecheck and build commands are discovered from the repository —
@@ -220,7 +220,7 @@ reaches the user once, in the evidence block at the end.
 
 ### 3.5 Review a change before it is committed
 
-The `pdlc-review` skill reads a diff and reports what an experienced tech
+The `a-pdlc-review` skill reads a diff and reports what an experienced tech
 lead would raise on it: code quality, the repository's own conventions,
 correct use of the libraries the change calls into, readability and
 maintainability for a human, whether the change stayed inside what its
@@ -242,7 +242,7 @@ Five behaviors are the point rather than the implementation:
   style zone of `AGENTS.md` for the conventions, the governing spec for the
   scope the work was authorised against, and the dependency versions
   actually installed for how a library is meant to be used. It ships no
-  quality checklist of its own, for the reason `pdlc-build` ships no
+  quality checklist of its own, for the reason `a-pdlc-build` ships no
   command table. Sources the repository does not have are named as missing
   rather than passed over.
 - **A library finding is grounded or it is marked unverified.** The
@@ -271,7 +271,7 @@ commit stays with whoever owns it.
 
 ### 3.6 Report to readers outside the repository
 
-The `pdlc-report` skill writes a dated report on a project for one audience
+The `a-pdlc-report` skill writes a dated report on a project for one audience
 — a sponsor, the end users, or the team — as Markdown, a one-page HTML
 document, or HTML slides ready to present. Its user is often not a developer,
 and it asks and reports in plain words.
@@ -331,7 +331,7 @@ common word, the rule before its reason.
 ### 3.8 Adapt to a repository that already uses `docs/`
 
 The documentation root defaults to `docs/`. A repository where that directory
-is taken puts Ag-PDLC Kit elsewhere and records it in `AGENTS.md`, in one
+is taken puts A-PDLC Kit elsewhere and records it in `AGENTS.md`, in one
 line. No configuration file is created
 ([ADR-0002](adr/0002-docs-root-without-config-file.md)).
 
@@ -354,7 +354,7 @@ The target host follows the skill's user
 software-cycle skills are for developers and their coding agent, and target
 these three hosts only. A skill for the roles that write no code targets the
 AI tools those roles use as well: Claude Cowork, Vibe Work, Microsoft 365
-Copilot. `pdlc-report` is the first such skill, and none of those tools is
+Copilot. `a-pdlc-report` is the first such skill, and none of those tools is
 tested with it.
 
 There is exactly one copy of every instruction. A per-provider copy, however
@@ -365,8 +365,8 @@ documentation discipline is three files — what every skill needs, what a
 skill writing `AGENTS.md` or `PRODUCT.md` needs, what a skill writing a
 decision record needs — and a skill names the ones it uses
 ([ADR-0010](adr/0010-shared-reference-split-by-need.md)). The build loop is a
-fourth, separate file for a separate concern, read by `pdlc-build`, by
-`pdlc-feature` at its own step 6, and by `pdlc-review` only once the user has
+fourth, separate file for a separate concern, read by `a-pdlc-build`, by
+`a-pdlc-feature` at its own step 6, and by `a-pdlc-review` only once the user has
 selected corrections to apply. A fifth file, `openspec.md`, is read only in a
 repository that uses OpenSpec. An agent's context is the scarce resource:
 instructions loaded and never applied are paid for on every invocation, and
@@ -380,26 +380,26 @@ specs in OpenSpec, unless its `AGENTS.md` says it keeps the kit's own
 The kit then writes nothing under `specs/`. `PRODUCT.md`, the ADRs and
 `AGENTS.md` stay with the kit.
 
-OpenSpec writes each change: `pdlc-feature` asks nothing and names
-OpenSpec's propose command. `pdlc-build` runs its test-first loop on an open
+OpenSpec writes each change: `a-pdlc-feature` asks nothing and names
+OpenSpec's propose command. `a-pdlc-build` runs its test-first loop on an open
 change, with the change's scenarios as Behavior lines and its out-of-scope
 list as non-goals. With the OpenSpec CLI installed, it validates the change
 before the loop and archives it in the same commit as the code, once the user
 approves. Without it, the change stays open and the skill says so; no skill
-merges deltas by hand. `pdlc-review` holds the diff to the change it builds,
-`pdlc-decide` writes a feature-level decision into the open change's
-`design.md`, and `pdlc-report` reads open and archived changes.
+merges deltas by hand. `a-pdlc-review` holds the diff to the change it builds,
+`a-pdlc-decide` writes a feature-level decision into the open change's
+`design.md`, and `a-pdlc-report` reads open and archived changes.
 
 What the kit records and OpenSpec does not — rejected alternatives, known
 gaps, the regulated-data question — reaches a change through rules
-`pdlc-init` offers to add to `openspec/config.yaml`. OpenSpec decides
+`a-pdlc-init` offers to add to `openspec/config.yaml`. OpenSpec decides
 whether to follow them, and nothing checks that it did.
 
 ## 4. Constraints
 
 - **The product installs one executable, and only on consent.** No build, no
   dependency, no runtime. The one script that runs on a documented repository
-  is the AI-notice check, which `pdlc-init` installs as a pre-commit hook in
+  is the AI-notice check, which `a-pdlc-init` installs as a pre-commit hook in
   the clone when the user says yes
   ([ADR-0019](adr/0019-the-kit-ships-one-check-that-runs-on-a-documented-repository.md)).
   The one other output that carries script is a report in slides, whose
@@ -412,9 +412,9 @@ whether to follow them, and nothing checks that it did.
   ([ADR-0008](adr/0008-one-maintainer-side-check-script.md)).
 - **The commands a skill has an agent run are git's, plus — inside the build
   loop — the repository's own.** Reading a repository was never in question:
-  `pdlc-init` has always used `git log`. Since
+  `a-pdlc-init` has always used `git log`. Since
   [ADR-0012](adr/0012-a-spec-precedes-the-implementation-it-governs.md) a
-  skill also has the agent commit — `pdlc-feature` commits the draft spec
+  skill also has the agent commit — `a-pdlc-feature` commits the draft spec
   the go-ahead is given on, and the reconciled spec with the code.
   [ADR-0014](adr/0014-a-skill-may-run-discovered-repository-commands.md)
   widened the surface to a repository's own test, lint, typecheck and build
@@ -422,18 +422,18 @@ whether to follow them, and nothing checks that it did.
   never invented, and
   [ADR-0015](adr/0015-review-corrections-enter-the-build-loop.md) supersedes
   it to place that surface in the build loop rather than in a list of skills
-  — `pdlc-build`, `pdlc-feature` at its own step 6 and `pdlc-review` all
+  — `a-pdlc-build`, `a-pdlc-feature` at its own step 6 and `a-pdlc-review` all
   reach the same loop, and none of them executes anything outside it.
   [ADR-0019](adr/0019-the-kit-ships-one-check-that-runs-on-a-documented-repository.md)
-  adds one script: `pdlc-init` runs the bundled AI-notice check to install
+  adds one script: `a-pdlc-init` runs the bundled AI-notice check to install
   its hook, after the user agrees. In a repository that uses OpenSpec, the
   OpenSpec CLI, when installed, validates a change before the build loop and
   archives it once the user approves the commit
-  ([ADR-0021](adr/0021-a-repository-that-uses-openspec-keeps-its-specs-there.md)). `pdlc-report` runs git commands that read
+  ([ADR-0021](adr/0021-a-repository-that-uses-openspec-keeps-its-specs-there.md)). `a-pdlc-report` runs git commands that read
   only, plus a temporary clone of a repository the user links to, deleted
   before it finishes. The set is exhaustive; nothing else is executed, and
   nothing is executed without the user having approved the work it verifies.
-- **Ag-PDLC Kit does not act, it instructs.** Everything it produces goes
+- **A-PDLC Kit does not act, it instructs.** Everything it produces goes
   through the model, and therefore through the user's validation at the
   checkpoints the skills define.
 - **Every generated document ends with the AI-assistance notice**, worded the
@@ -456,7 +456,7 @@ whether to follow them, and nothing checks that it did.
 
 | Left out | Add it when |
 |---|---|
-| Backfilling decisions on an existing repository | Never, by design ([ADR-0004](adr/0004-decision-records-are-written-forward.md)). A human who remembers the alternatives can have `pdlc-decide` interview them and write the record; what it will not do is supply the alternatives itself |
+| Backfilling decisions on an existing repository | Never, by design ([ADR-0004](adr/0004-decision-records-are-written-forward.md)). A human who remembers the alternatives can have `a-pdlc-decide` interview them and write the record; what it will not do is supply the alternatives itself |
 | Doc-versus-code drift detection after the fact — an audit of existing documents against the code, outside a feature session. Reconciling a spec at the end of its own feature is delivered and is not this | The skills have enough mileage to tell a real false positive from noise. An audit that cries wolf is ignored within a fortnight |
 | Isolation for several agent tasks at once — a worktree per task | Agent sessions are actually run in parallel on one clone often enough to collide. The rule such a skill would carry is which seam the tasks are split along, not the git commands, which the hosts already run |
 | Bounded-context scope fences and a per-context glossary | A repository the kit is installed on is genuinely structured in contexts, and an agent is caught inventing domain vocabulary a glossary would have refused |

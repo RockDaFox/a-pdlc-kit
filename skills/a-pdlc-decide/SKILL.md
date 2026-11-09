@@ -1,12 +1,12 @@
 ---
-name: pdlc-decide
-description: Record a decision that produces no code right now — a technical foundation, an architecture approval, a boundary, a dependency the repo will carry — as an ADR or a spec entry, with the alternatives that lost. Also walks the supersession of an existing ADR, which is append-only and never edited in place. Use when a decision has just been taken or is about to be, when an earlier ADR is being reversed, or when the user invokes /pdlc-decide.
+name: a-pdlc-decide
+description: Record a decision that produces no code right now — a technical foundation, an architecture approval, a boundary, a dependency the repo will carry — as an ADR or a spec entry, with the alternatives that lost. Also walks the supersession of an existing ADR, which is append-only and never edited in place. Use when a decision has just been taken or is about to be, when an earlier ADR is being reversed, or when the user invokes /a-pdlc-decide.
 ---
 
 # Record a decision
 
 Some decisions arrive with code, and
-[`pdlc-feature`](../pdlc-feature/SKILL.md) records those on the way past. The
+[`a-pdlc-feature`](../a-pdlc-feature/SKILL.md) records those on the way past. The
 rest arrive on their own: a stack chosen before anything is built, an
 architecture approved before stories are sharded, a boundary drawn between two
 parts of the system, a dependency the repository agrees to carry. Those have no

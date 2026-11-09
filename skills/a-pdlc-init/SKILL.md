@@ -1,9 +1,9 @@
 ---
-name: pdlc-init
-description: Bootstrap the Ag-PDLC Kit documentation discipline on an existing repository — writes AGENTS.md and PRODUCT.md by reading the code and the git history, so they describe what is actually delivered rather than what was once intended, and opens an empty decision log that grows from today. Also offers a pre-commit hook that refuses a commit carrying an unreviewed AI-assistance notice and, on a repository that uses OpenSpec, the kit's rules for OpenSpec's configuration — the only things it offers on a repository already initialised. Use when a repo has no product document, no specs and no AGENTS.md, when the user asks to set up, install or initialise Ag-PDLC Kit on a project, or when they ask for the AI-notice hook.
+name: a-pdlc-init
+description: Bootstrap the A-PDLC Kit documentation discipline on an existing repository — writes AGENTS.md and PRODUCT.md by reading the code and the git history, so they describe what is actually delivered rather than what was once intended, and opens an empty decision log that grows from today. Also offers a pre-commit hook that refuses a commit carrying an unreviewed AI-assistance notice and, on a repository that uses OpenSpec, the kit's rules for OpenSpec's configuration — the only things it offers on a repository already initialised. Use when a repo has no product document, no specs and no AGENTS.md, when the user asks to set up, install or initialise A-PDLC Kit on a project, or when they ask for the AI-notice hook.
 ---
 
-# Ag-PDLC Kit init
+# A-PDLC Kit init
 
 Documentation written from a repo's code and history describes what was
 actually shipped. Documentation written from memory or from an old ticket
@@ -100,7 +100,7 @@ guessed), the architecture in a paragraph, the code style the code actually
 exhibits, and every trap the history shows someone already hit. A rule you
 cannot point at evidence for does not go in. Its Documentation section names
 `{docs_root}`, says what each level holds, and states that the decision log
-starts from the Ag-PDLC Kit installation. On a repository that uses
+starts from the A-PDLC Kit installation. On a repository that uses
 OpenSpec, it says that feature specs live in `openspec/`, and that the ADRs,
 `PRODUCT.md` and `AGENTS.md` stay with the kit.
 
@@ -166,7 +166,7 @@ rather than evidence. That list is the honest output of this skill, not a
 failure.
 
 Say plainly that the decision log is empty by design, and that the first ADR
-or spec arrives with the next piece of work — through `pdlc-feature`, or by
+or spec arrives with the next piece of work — through `a-pdlc-feature`, or by
 hand.
 
 Remind the user that these documents were AI-drafted from the repo and need

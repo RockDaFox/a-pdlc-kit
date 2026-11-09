@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| **Status** | Accepted |
+| **Status** | Superseded by ADR-0022 |
 | **Date** | 2026-10-08 |
 | **Supersedes** | [ADR-0006](0006-product-named-a-pdlc-kit.md) |
 

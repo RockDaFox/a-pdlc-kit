@@ -39,7 +39,7 @@ When it is not, say so. A change is never archived by hand: merging deltas reimp
 
 ## The rules offered to OpenSpec's configuration
 
-OpenSpec adds the rules in `openspec/config.yaml` to the prompt of the artifact they are keyed by. These rules make a change record what the kit records in its own specs. `pdlc-init` offers them; they are written in the repository's documentation language, and added beside any rule already present.
+OpenSpec adds the rules in `openspec/config.yaml` to the prompt of the artifact they are keyed by. These rules make a change record what the kit records in its own specs. `a-pdlc-init` offers them; they are written in the repository's documentation language, and added beside any rule already present.
 
 ```yaml
 rules:

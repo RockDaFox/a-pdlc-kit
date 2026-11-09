@@ -1,6 +1,6 @@
 ---
-name: pdlc-feature
-description: Build a feature from a loose request while capturing the decisions it produces. Clarifies ambiguities as questions before any code, writes the spec — decisions taken, alternatives rejected, non-goals — and waits for an explicit go-ahead on it, implements against it, then reconciles it with what shipped (and writes an ADR when a decision is structural). Use when the user describes a feature to build, or invokes /pdlc-feature followed by that description.
+name: a-pdlc-feature
+description: Build a feature from a loose request while capturing the decisions it produces. Clarifies ambiguities as questions before any code, writes the spec — decisions taken, alternatives rejected, non-goals — and waits for an explicit go-ahead on it, implements against it, then reconciles it with what shipped (and writes an ADR when a decision is structural). Use when the user describes a feature to build, or invokes /a-pdlc-feature followed by that description.
 ---
 
 # New feature
@@ -15,7 +15,7 @@ and its tests are written from — then reconciles it with what shipped.
 A decision that arrives without code — a stack settled before anything is
 built, an architecture approved before the work is split, an earlier ADR being
 reversed — has no implementation to ride along on. That is
-[`pdlc-decide`](../pdlc-decide/SKILL.md).
+[`a-pdlc-decide`](../a-pdlc-decide/SKILL.md).
 
 Read [`doc-discipline.md`](../_pdlc-shared/doc-discipline.md) before writing
 any document: it defines which file a given sentence belongs in, and how to
@@ -29,12 +29,12 @@ regulated-data record.
 `doc-discipline.md` says how to tell. In such a repository, OpenSpec writes
 the spec, and this skill stops here: it asks nothing and writes nothing.
 Name OpenSpec's explore and propose commands, then
-[`pdlc-build`](../pdlc-build/SKILL.md) on the change once the user has
+[`a-pdlc-build`](../a-pdlc-build/SKILL.md) on the change once the user has
 approved it. If `openspec/config.yaml` carries none of the rules
 [`openspec.md`](../_pdlc-shared/openspec.md) lists, say that the change's
 `design.md` will not record rejected alternatives or known gaps, and name
-`pdlc-init` to add them. An ADR the work turns out to warrant goes through
-[`pdlc-decide`](../pdlc-decide/SKILL.md).
+`a-pdlc-init` to add them. An ADR the work turns out to warrant goes through
+[`a-pdlc-decide`](../a-pdlc-decide/SKILL.md).
 
 ## Before forming an opinion
 
@@ -47,7 +47,7 @@ Read the request in the full context of the repo:
 - `{docs_root}/adr/` — structural decisions that already constrain the answer.
 - The code that already does something similar.
 
-If the repo has none of these, say so and offer to run `pdlc-init` first. Do
+If the repo has none of these, say so and offer to run `a-pdlc-init` first. Do
 not refuse to proceed — a repo without documentation is exactly where the first
 spec is worth the most; just write it against the conventions the code actually
 shows.
@@ -129,7 +129,7 @@ only for a decision that passes the tests; a feature usually produces none.
 Write it at step 7 and never at step 4: a committed ADR is a record and cannot
 be corrected, and a decision taken before the work can still move.
 Never edit an existing ADR to change its decision — supersede it, and let
-[`pdlc-decide`](../pdlc-decide/SKILL.md) walk the two-file mechanic rather
+[`a-pdlc-decide`](../a-pdlc-decide/SKILL.md) walk the two-file mechanic rather
 than repeating it here.
 
 **`{docs_root}/PRODUCT.md`** — only if the feature changes what the product

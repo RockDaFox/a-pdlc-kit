@@ -1,15 +1,15 @@
-# Spec — pdlc-feature
+# Spec — a-pdlc-feature
 
 > **Status: Draft** — decision 18 is authorised and not yet built. Decisions
 > 1 to 17 and 19 are shipped.
 >
-> Living document: any change to the `pdlc-feature` skill is reflected here in
+> Living document: any change to the `a-pdlc-feature` skill is reflected here in
 > the same change. Revised 2026-11-05.
 
 
 ## Summary
 
-`pdlc-feature` turns an informal feature request into working code, and writes
+`a-pdlc-feature` turns an informal feature request into working code, and writes
 down what the work decided. It reads the repository, surfaces every open point
 as a question, writes the spec and commits it as a draft, waits for an explicit
 go-ahead on that spec, implements against it, then reconciles it with what
@@ -50,7 +50,7 @@ The routing between spec and ADR is not decided here. It is stated once in
    so an ADR drafted before the work freezes a decision that can still move.
    The spec can be written early precisely because it is rewritten in place.
 7. **An undocumented repository is not refused.** The skill offers
-   `pdlc-init` and proceeds anyway, writing the spec against the
+   `a-pdlc-init` and proceeds anyway, writing the spec against the
    conventions the code actually shows — a repo with no documentation is
    where the first spec is worth the most.
 8. **`AGENTS.md` is updated only for a rule that became repo-wide**, and
@@ -72,7 +72,7 @@ The routing between spec and ADR is not decided here. It is stated once in
     the question as unanswered. Blocking would get the skill worked around;
     silence would lose the only trace that the question was ever raised.
 12. **A decision arriving without code leaves this skill.**
-    [`pdlc-decide`](pdlc-decide.md) holds it, and holds the supersession
+    [`a-pdlc-decide`](pdlc-decide.md) holds it, and holds the supersession
     mechanic that this skill previously only named as a rule.
 13. **It loads two reference files, not the whole discipline.**
     `doc-discipline.md` for the routing of a sentence and the writing rules,
@@ -83,7 +83,7 @@ The routing between spec and ADR is not decided here. It is stated once in
     ([ADR-0010](../adr/0010-shared-reference-split-by-need.md)).
 14. **Step 6 runs the build loop stated in `build-loop.md`, loaded there and
     not at the start.** The loop is identical whether reached from here or
-    standalone from [`pdlc-build`](pdlc-build.md), so it is stated once, in
+    standalone from [`a-pdlc-build`](pdlc-build.md), so it is stated once, in
     the shared reference, rather than kept as this skill's own implicit
     version of it. A session that stops at the go-ahead never pays for build
     instructions it will not use.
@@ -107,32 +107,32 @@ The routing between spec and ADR is not decided here. It is stated once in
     one review of the tests' relevance that happens before they exist
     ([ADR-0017](../adr/0017-a-spec-states-its-behavior-as-testable-lines.md)).
 18. **After writing the spec, the skill asks whether to launch a review of it,
-    and the user can skip.** The review is [`pdlc-review`](pdlc-review.md) on
+    and the user can skip.** The review is [`a-pdlc-review`](pdlc-review.md) on
     the spec, read by two fresh agents. It runs only on a yes, and nothing runs
     before the answer. On a yes, the findings are relayed as returned, the open
     questions go back to the user as step 3 questions, and the wording fixes
     the user selects are applied to the draft. The go-ahead at step 5 is then
     given on the revised spec. On a no, the skill goes straight to the
     go-ahead. The question is one line and writes out the exact command, with the
-    spec's own path, such as `/pdlc-review docs/specs/<spec-name>.md`, so the
+    spec's own path, such as `/a-pdlc-review docs/specs/<spec-name>.md`, so the
     user sees which target the review will take and can run it by hand. The
     question is one line because the moment after the draft is
     written is when a finding costs least to act on, and a mandatory review
     would add the full ceremony to a trivial feature. The review stays on
-    demand ([`pdlc-review`](pdlc-review.md) decision 1): asking is not
+    demand ([`a-pdlc-review`](pdlc-review.md) decision 1): asking is not
     starting it.
 19. **In a repository that uses OpenSpec, the skill writes no spec and hands
     the request to OpenSpec.** The repository uses OpenSpec when an
     `openspec/` directory sits at its root, unless its `AGENTS.md` says it
     keeps the kit's own specs ([ADR-0021](../adr/0021-a-repository-that-uses-openspec-keeps-its-specs-there.md)). The skill then asks nothing and writes
     nothing. It names OpenSpec's explore and propose commands, then
-    [`pdlc-build`](pdlc-build.md) on the change once the user approves it. A
+    [`a-pdlc-build`](pdlc-build.md) on the change once the user approves it. A
     team that adopted OpenSpec chose its proposal flow, and a second flow
     writing the same change would give it two authors. What the kit adds to a
     change — rejected alternatives, known gaps, the regulated-data question
-    — reaches OpenSpec through the rules `pdlc-init` offers to add to its
+    — reaches OpenSpec through the rules `a-pdlc-init` offers to add to its
     configuration. An ADR the work turns out to warrant goes through
-    [`pdlc-decide`](pdlc-decide.md).
+    [`a-pdlc-decide`](pdlc-decide.md).
 
 ## Behavior
 
@@ -140,10 +140,10 @@ The lines below cover a repository that uses OpenSpec only.
 
 - **B1** — `openspec/` sits at the root and `AGENTS.md` does not opt out:
   the skill asks no question, writes no file, and names OpenSpec's explore
-  and propose commands, then `pdlc-build` on the approved change.
+  and propose commands, then `a-pdlc-build` on the approved change.
 - **B2** — `openspec/config.yaml` carries none of the kit's rules: the skill
   says that the change's `design.md` will not record rejected alternatives
-  or known gaps, and names `pdlc-init` to add them.
+  or known gaps, and names `a-pdlc-init` to add them.
 - **B3** — `AGENTS.md` says the repository keeps the kit's own specs: the
   skill runs as in a repository without OpenSpec.
 
@@ -160,7 +160,7 @@ The lines below cover a repository that uses OpenSpec only.
   rejected: it needs hook configuration, which means something executing on
   the user's machine, against the no-executables constraint in `PRODUCT.md`.
   It is also noisy on exactly the repositories with the most specs.
-- **A blocking check before commit** — rejected: Ag-PDLC Kit cannot tell a
+- **A blocking check before commit** — rejected: A-PDLC Kit cannot tell a
   behavior change from a rename, so it would block on the second and be
   disabled by the end of the week.
 - **Writing the spec only after implementing** — this skill's original shape,
@@ -176,7 +176,7 @@ The lines below cover a repository that uses OpenSpec only.
 - **Writing the spec before the code and never reconciling it** — rejected,
   and it is the variant the original reasoning defeats outright. It is worse
   than a late spec: it describes the plan with the authority of a record.
-- **Folding `pdlc-init` into this skill** — rejected: bootstrapping reads
+- **Folding `a-pdlc-init` into this skill** — rejected: bootstrapping reads
   the whole repository and its history, which is a different job with a
   different failure mode, and mixing them would make the common case pay for
   the rare one.

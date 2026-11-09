@@ -1,4 +1,4 @@
-# Ag-PDLC Kit
+# A-PDLC Kit
 
 How this repository is written. What the product does is in
 [`docs/PRODUCT.md`](docs/PRODUCT.md); why it is built this way is in
@@ -20,7 +20,7 @@ marker still on. It reports, never fixes, and writes nothing. No
 skill invokes it and none ever will
 ([ADR-0019](docs/adr/0019-the-kit-ships-one-check-that-runs-on-a-documented-repository.md)).
 The one script a skill does run is `skills/_pdlc-shared/notice-check.sh`, the
-AI-notice hook `pdlc-init` installs on a project repository.
+AI-notice hook `a-pdlc-init` installs on a project repository.
 
 ```
 sh scripts/bump-version.sh major|minor|patch|X.Y.Z
@@ -36,7 +36,7 @@ both hosts install the same tree through their own marketplace:
 
 ```
 /plugin marketplace add <absolute path to this repository>
-/plugin install ag-pdlc-kit@ag-pdlc-kit
+/plugin install a-pdlc-kit@a-pdlc-kit
 ```
 
 Components are discovered at session start, so a change needs a new session,
@@ -58,12 +58,12 @@ gets a manifest pair pointing at the same tree
 skills/
 ├── _pdlc-shared/            five reference files, templates, notice-check.sh;
 │                            not a skill
-├── pdlc-init/SKILL.md       one directory per skill, named exactly SKILL.md
-├── pdlc-feature/SKILL.md
-├── pdlc-decide/SKILL.md
-├── pdlc-build/SKILL.md
-├── pdlc-review/SKILL.md
-└── pdlc-report/SKILL.md     self-contained: reads nothing in _pdlc-shared/
+├── a-pdlc-init/SKILL.md       one directory per skill, named exactly SKILL.md
+├── a-pdlc-feature/SKILL.md
+├── a-pdlc-decide/SKILL.md
+├── a-pdlc-build/SKILL.md
+├── a-pdlc-review/SKILL.md
+└── a-pdlc-report/SKILL.md     self-contained: reads nothing in _pdlc-shared/
 scripts/check.sh             maintainer tooling; no skill invokes it
 scripts/bump-version.sh      maintainer tooling; no skill invokes it
 AGENTS.md, docs/             this repository's own documentation
@@ -96,8 +96,8 @@ The discipline itself is in
 every skill needs, `state-documents.md` and `decision-records.md` hold what
 only some do, so no session loads instructions it will not use
 ([ADR-0010](docs/adr/0010-shared-reference-split-by-need.md)). `build-loop.md`
-holds the test-first loop, read by `pdlc-build`, by `pdlc-feature` at its own
-step 6 and by `pdlc-review` once corrections are selected — never at the
+holds the test-first loop, read by `a-pdlc-build`, by `a-pdlc-feature` at its own
+step 6 and by `a-pdlc-review` once corrections are selected — never at the
 start. `openspec.md` is read only in a repository that keeps its feature
 specs in OpenSpec
 ([ADR-0021](docs/adr/0021-a-repository-that-uses-openspec-keeps-its-specs-there.md)).
@@ -137,7 +137,7 @@ a product change, and shows up in `docs/PRODUCT.md` or an ADR.
   about why the discipline exists. That is stated once, in the reference.
 - **Skills link to the reference rather than restating it.** A rule that
   appears in two skills has to move into the reference; two copies drift.
-  The exception is `pdlc-report`, which targets AI tools that may load its
+  The exception is `a-pdlc-report`, which targets AI tools that may load its
   `SKILL.md` alone, and restates the few rules it needs
   ([spec](docs/specs/pdlc-report.md), decision 19). Do not "fix" it by
   linking it to the reference.

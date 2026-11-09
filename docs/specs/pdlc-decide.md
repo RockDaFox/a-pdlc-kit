@@ -1,13 +1,13 @@
-# Spec — pdlc-decide
+# Spec — a-pdlc-decide
 
 > **Status: Shipped**
 >
-> Living document: any change to the `pdlc-decide` skill is reflected here in
+> Living document: any change to the `a-pdlc-decide` skill is reflected here in
 > the same change. Revised 2026-11-05.
 
 ## Summary
 
-`pdlc-decide` records a decision that produces no code at the moment it is
+`a-pdlc-decide` records a decision that produces no code at the moment it is
 taken: a technical foundation chosen before anything is built, an architecture
 approved before work is split, a boundary drawn, a dependency the repository
 agrees to carry. It routes the decision with the three tests from
@@ -19,13 +19,13 @@ It also walks the supersession of an existing ADR, which is the one mechanic
 the discipline states as a rule and no skill previously performed.
 
 It is the third way into the decision log, beside
-[`pdlc-feature`](pdlc-feature.md), which records decisions that arrive with an
-implementation, and [`pdlc-init`](pdlc-init.md), which writes none by design.
+[`a-pdlc-feature`](pdlc-feature.md), which records decisions that arrive with an
+implementation, and [`a-pdlc-init`](pdlc-init.md), which writes none by design.
 
 ## Decisions
 
 1. **Decisions without code get their own skill rather than a mode of
-   `pdlc-feature`.** `pdlc-feature`'s whole shape — question round, spec,
+   `a-pdlc-feature`.** `a-pdlc-feature`'s whole shape — question round, spec,
    go-ahead, implement, reconcile — is organised around producing a diff. A
    decision with no diff would have to skip four of its five steps, and a
    skill that is mostly skipped is a skill nobody reaches for.

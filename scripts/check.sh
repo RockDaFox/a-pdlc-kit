@@ -23,7 +23,7 @@ cd "$(dirname "$0")/.." || exit 1
 # fallback below would then walk whatever directory that is — up to the whole
 # disk.
 if [ ! -f AGENTS.md ] || [ ! -d skills ]; then
-	echo "not in the Ag-PDLC Kit repository: $(pwd) — this script checks the kit only"
+	echo "not in the A-PDLC Kit repository: $(pwd) — this script checks the kit only"
 	exit 1
 fi
 

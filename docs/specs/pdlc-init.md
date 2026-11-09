@@ -1,13 +1,13 @@
-# Spec — pdlc-init
+# Spec — a-pdlc-init
 
 > **Status: Shipped**
 >
-> Living document: any change to the `pdlc-init` skill is reflected here in
+> Living document: any change to the `a-pdlc-init` skill is reflected here in
 > the same change. Revised 2026-11-05.
 
 ## Summary
 
-`pdlc-init` installs the four-level discipline on a repository that has
+`a-pdlc-init` installs the four-level discipline on a repository that has
 none. It surveys the code, reads the git history, settles the documentation
 root, then writes two files: `AGENTS.md` and `PRODUCT.md`. It writes no ADR
 and no spec — the decision log starts empty and grows forward
@@ -15,7 +15,7 @@ and no spec — the decision log starts empty and grows forward
 finishes by naming what it could not establish.
 
 It runs once per repository. Keeping the documents alive afterwards is
-[`pdlc-feature`](pdlc-feature.md)'s job.
+[`a-pdlc-feature`](pdlc-feature.md)'s job.
 
 It also offers a pre-commit hook, installed only if the user agrees. The hook
 refuses a commit that adds an AI-assistance notice to a document, so a
@@ -184,9 +184,9 @@ uses OpenSpec.
 ## Rejected alternatives
 
 - **Installing the hook by hand from instructions** — rejected by the user:
-  `pdlc-init` installs it, with consent.
+  `a-pdlc-init` installs it, with consent.
 - **A dedicated skill for the hook** — rejected by the user in favour of
-  `pdlc-init`.
+  `a-pdlc-init`.
 - **A versioned hooks directory with `core.hooksPath`** — rejected: it turns
   off every hook in `.git/hooks`, and collides with hook managers that set
   the same option.
@@ -252,7 +252,7 @@ uses OpenSpec.
 |---|---|
 | No strategy for a repository too large to survey in one pass | A monorepo is attempted and the survey step runs out of context |
 | Assumes git; a repository without history yields a thinner `AGENTS.md` | A target project uses another VCS, or none |
-| No refresh mode for a repository where Ag-PDLC Kit already ran | The documents have drifted enough that re-deriving beats editing |
+| No refresh mode for a repository where A-PDLC Kit already ran | The documents have drifted enough that re-deriving beats editing |
 | No migration for a repository initialised at 0.1.0, whose product document is named `PRD.md` | A repository on the old name asks for it. The skill treats the file as existing prose and proposes a merge, but never renames it |
 | No check that the merged `AGENTS.md` follows the section order it was written to | Section order is judgment, so a check would need a model reading the file, not a command. The line budget is no longer a gap: it is measured with `wc -l` ([ADR-0008](../adr/0008-one-maintainer-side-check-script.md) draws the line between a command an agent runs and a file the product ships) |
 | A clone without the hook commits a notice unchecked; the hook is per clone | A notice reaches a shared branch from a clone that never installed the hook |

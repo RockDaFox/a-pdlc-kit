@@ -1,14 +1,14 @@
-# Spec — pdlc-report
+# Spec — a-pdlc-report
 
 > **Status: Shipped**
 >
-> Living document: any change to the `pdlc-report` skill is reflected here in the same change. Revised 2026-11-05.
+> Living document: any change to the `a-pdlc-report` skill is reflected here in the same change. Revised 2026-11-05.
 
 ## Summary
 
-`pdlc-report` reads what a project recorded over a period — its specs and ADRs — and writes a dated report for a reader who does not read the repository: a sponsor, the end users, or the team. It always reads the specs and ADRs in full, as they stand at the end of the period, and writes the report from them. It takes them from the first source that works: a repository at hand, a link to the repository read with the access the AI tool already has, or the files the user supplies. It places them in the period by the dates they carry. Where git history is at hand, it also tells which of their lines are new in the period. Before it reads anything it has five answers from the user: audience, format, language, period and destination path. It shows a sourced list of what it will include, writes the report once the user has validated that list, and commits nothing.
+`a-pdlc-report` reads what a project recorded over a period — its specs and ADRs — and writes a dated report for a reader who does not read the repository: a sponsor, the end users, or the team. It always reads the specs and ADRs in full, as they stand at the end of the period, and writes the report from them. It takes them from the first source that works: a repository at hand, a link to the repository read with the access the AI tool already has, or the files the user supplies. It places them in the period by the dates they carry. Where git history is at hand, it also tells which of their lines are new in the period. Before it reads anything it has five answers from the user: audience, format, language, period and destination path. It shows a sourced list of what it will include, writes the report once the user has validated that list, and commits nothing.
 
-It reads what [`pdlc-feature`](pdlc-feature.md), [`pdlc-decide`](pdlc-decide.md) and [`pdlc-build`](pdlc-build.md) record, and adds nothing to it. Its user is whoever prepares the report — a product owner, a delivery lead, a consultant — and its output is the first in the kit addressed outside the team. It targets the AI tools those roles use as well as the developer hosts ([ADR-0018](../adr/0018-the-kit-serves-the-whole-product-team.md)).
+It reads what [`a-pdlc-feature`](pdlc-feature.md), [`a-pdlc-decide`](pdlc-decide.md) and [`a-pdlc-build`](pdlc-build.md) record, and adds nothing to it. Its user is whoever prepares the report — a product owner, a delivery lead, a consultant — and its output is the first in the kit addressed outside the team. It targets the AI tools those roles use as well as the developer hosts ([ADR-0018](../adr/0018-the-kit-serves-the-whole-product-team.md)).
 
 ## Non-goals
 
@@ -20,7 +20,7 @@ It reads what [`pdlc-feature`](pdlc-feature.md), [`pdlc-decide`](pdlc-decide.md)
 - It keeps no memory of earlier reports.
 - It applies no branding or corporate template.
 - It serves three audiences only. Support is not one of them.
-- It records no decision. That is `pdlc-feature` and `pdlc-decide`.
+- It records no decision. That is `a-pdlc-feature` and `a-pdlc-decide`.
 
 ## Decisions
 
@@ -43,7 +43,7 @@ It reads what [`pdlc-feature`](pdlc-feature.md), [`pdlc-decide`](pdlc-decide.md)
 17. **Each HTML format is one self-contained file.** CSS and script are inline, and nothing is loaded from the network. The file opens offline, travels as an attachment, and makes no request from a client's machine.
 18. **The slides carry JavaScript for navigation.** Keyboard navigation and full screen are what make them ready to present. The script navigates and nothing else: no network call, no storage. A generated file that contains script is new to the kit ([ADR-0020](../adr/0020-generated-slides-may-carry-navigation-script.md)).
 19. **The skill is self-contained: it reads no file under `skills/_pdlc-shared/`.** The AI tools it targets are untested, and a host that loads the `SKILL.md` without its directory would leave it with dead links and no error. The few rules it needs — the AI notice, how `{docs_root}` is found — are stated in its own file. That is a deliberate exception to the kit's rule that skills link to the reference rather than restate it.
-20. **A project with no spec and no ADR stops the skill.** Without decisions the report would be a reworded change log, and the skill offers `pdlc-init` instead.
+20. **A project with no spec and no ADR stops the skill.** Without decisions the report would be a reworded change log, and the skill offers `a-pdlc-init` instead.
 21. **Questions waiting for an answer open the sponsor report.** They are what the meeting has to act on.
 22. **The skill asks and reports without developer vocabulary.** No commit, branch, diff or tag in what it asks a user who did not mention them first.
 23. **In a project that uses OpenSpec, the specs are OpenSpec's, and the skill reads them where OpenSpec keeps them.** The project uses OpenSpec when an `openspec/` folder sits at its root, unless its `AGENTS.md` says it keeps the kit's own specs ([ADR-0021](../adr/0021-a-repository-that-uses-openspec-keeps-its-specs-there.md)). The ADRs stay in the documentation folder. A change archived in the period is the delivered work, dated by its archive folder. Its `design.md` holds the decisions, the rejected alternatives, the known gaps and the regulated-data record. An open change is work in progress. The skill states these rules in its own file, as decision 19 requires.
@@ -62,7 +62,7 @@ It reads what [`pdlc-feature`](pdlc-feature.md), [`pdlc-decide`](pdlc-decide.md)
 - **B10** — A link whose access fails: the skill says which access failed and proposes how to get it — on a developer host, git credentials for that forge; on another host, a connector to that forge authorised on this repository. It says who can grant it: the user, or the organisation's administrator. It gives the steps of the host it runs on only where that host documents them, and otherwise names the setting to look for. It adds that connecting a third-party tool to a client's repository is the organisation's call. It never asks for a credential, and never suggests pasting a token into the conversation.
 - **B11** — Access set up after B10: the skill retries the link. The user declines, or access still fails: the skill asks for the files.
 - **B12** — Before listing anything: the skill reads in full every spec and ADR under `{docs_root}` as it stands at the end of the period, from the source it reached.
-- **B13** — A project with no spec and no ADR: the skill stops, writes nothing, and offers `pdlc-init`.
+- **B13** — A project with no spec and no ADR: the skill stops, writes nothing, and offers `a-pdlc-init`.
 - **B14** — A period with nothing to report for the chosen audience: the skill says so in plain words, with the reason when the records show it — for example, that no feature was marked delivered in the period — and writes nothing.
 - **B15** — Delivered, with git: each Behavior line present at the end of the period and absent at its start, in a spec whose Status is `Shipped` at the end. Without git: the Behavior lines of each `Shipped` spec whose Revised date falls in the period.
 - **B16** — Decided, with git: each ADR added in the period, and each Decisions line added in the period to a spec. A rejected alternative added in the period sits under the decision it names, or on its own line. Without git: each ADR whose Date falls in the period, with its alternatives weighed.

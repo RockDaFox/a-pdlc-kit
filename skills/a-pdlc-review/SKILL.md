@@ -1,6 +1,6 @@
 ---
-name: pdlc-review
-description: Review a change the way an experienced tech lead would — code quality, the repository's own conventions, correct use of the libraries in play, readability and maintainability for a human, whether the change stayed inside what its spec authorised, and whether its tests assert what the spec states. Reads the change in an agent independent of the one that built it, and reports findings graded blocking, to fix and detail, asks which ones to apply, applies only those, then runs the repository's own checks. Invoked on demand, on the uncommitted working tree or on a target given. Use when a change is ready to be looked over before it is committed, or when the user invokes /pdlc-review.
+name: a-pdlc-review
+description: Review a change the way an experienced tech lead would — code quality, the repository's own conventions, correct use of the libraries in play, readability and maintainability for a human, whether the change stayed inside what its spec authorised, and whether its tests assert what the spec states. Reads the change in an agent independent of the one that built it, and reports findings graded blocking, to fix and detail, asks which ones to apply, applies only those, then runs the repository's own checks. Invoked on demand, on the uncommitted working tree or on a target given. Use when a change is ready to be looked over before it is committed, or when the user invokes /a-pdlc-review.
 ---
 
 # Review a change
@@ -9,7 +9,7 @@ A review is worth what it refuses to say. Asked to look at a diff, a model will 
 
 Read [`doc-discipline.md`](../_pdlc-shared/doc-discipline.md) first: it resolves `{docs_root}` and holds the routing test, which the last step needs. Read [`build-loop.md`](../_pdlc-shared/build-loop.md) later, and only once the user has selected something — that file is what applies the corrections, and a review the user closes without selecting any has no use for it.
 
-This skill is invoked on demand, and nothing calls it automatically: [`pdlc-build`](../pdlc-build/SKILL.md) ends on its own evidence block and its own ask, and a review before that commit is the user's decision to make, not a gate the kit imposes. The relation runs the other way round — a review does not sit inside the loop, it reaches into it once the user has chosen what to correct.
+This skill is invoked on demand, and nothing calls it automatically: [`a-pdlc-build`](../a-pdlc-build/SKILL.md) ends on its own evidence block and its own ask, and a review before that commit is the user's decision to make, not a gate the kit imposes. The relation runs the other way round — a review does not sit inside the loop, it reaches into it once the user has chosen what to correct.
 
 ## Who reads the change
 
@@ -75,6 +75,6 @@ A substantive finding the user declined goes into the governing spec's Known gap
 
 Report the loop's evidence block, then what was declined and where it was recorded. Findings left unverified are named again here, as unverified — that is the state they are in, not a reservation to bury in the body.
 
-This skill commits nothing. The review ends on a working tree, and the commit stays with whoever owns it: `pdlc-build`'s own ask, `pdlc-feature`'s step 7, or the user directly.
+This skill commits nothing. The review ends on a working tree, and the commit stays with whoever owns it: `a-pdlc-build`'s own ask, `a-pdlc-feature`'s step 7, or the user directly.
 
 Remind the user that the findings and any Known gaps entry written here were AI-drafted and need review before they are treated as authoritative.

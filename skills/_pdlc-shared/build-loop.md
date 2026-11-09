@@ -13,10 +13,10 @@ In a repository that uses OpenSpec, the spec is the open change, and
 [`openspec.md`](openspec.md) maps each term this loop uses — Behavior line,
 proposed line, non-goals — to its place in the change.
 
-Three callers reach this same loop: [`pdlc-build`](../pdlc-build/SKILL.md),
-standalone; [`pdlc-feature`](../pdlc-feature/SKILL.md), at its own step 6, on
+Three callers reach this same loop: [`a-pdlc-build`](../a-pdlc-build/SKILL.md),
+standalone; [`a-pdlc-feature`](../a-pdlc-feature/SKILL.md), at its own step 6, on
 the spec the go-ahead was just given on; and
-[`pdlc-review`](../pdlc-review/SKILL.md), on each correction the user
+[`a-pdlc-review`](../a-pdlc-review/SKILL.md), on each correction the user
 selected. Whichever decisions the build itself produces still need routing —
 read [`decision-records.md`](decision-records.md) too, unless the caller
 already carries it.

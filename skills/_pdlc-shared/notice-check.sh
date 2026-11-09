@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Ag-PDLC Kit — refuses a commit that adds an AI-assistance notice nobody has
+# A-PDLC Kit — refuses a commit that adds an AI-assistance notice nobody has
 # reviewed. The notice ends every document an agent drafts, under the marker
 # below; a human removes both as the review. This script makes forgetting that
 # review impossible, not skipping it: `git commit --no-verify` still goes

@@ -1,6 +1,6 @@
 ---
-name: pdlc-report
-description: Write a dated report on a project for readers who do not read its repository — a sponsor or steering committee, the end users, or the team — as Markdown, a one-page HTML document, or HTML slides ready to present. Reads the project's specs and ADRs in full, from a local repository, a link to the repository, or files the user supplies, shows a sourced list of what it will include for the user to validate, then writes the report in the language asked. Use when someone needs slides, a summary, a status update, release notes or a steering committee report on what a project delivered and decided over a period, or when the user invokes /pdlc-report.
+name: a-pdlc-report
+description: Write a dated report on a project for readers who do not read its repository — a sponsor or steering committee, the end users, or the team — as Markdown, a one-page HTML document, or HTML slides ready to present. Reads the project's specs and ADRs in full, from a local repository, a link to the repository, or files the user supplies, shows a sourced list of what it will include for the user to validate, then writes the report in the language asked. Use when someone needs slides, a summary, a status update, release notes or a steering committee report on what a project delivered and decided over a period, or when the user invokes /a-pdlc-report.
 ---
 
 # Report on a project
@@ -53,7 +53,7 @@ Read every spec and every ADR in full, as it stands at the end of the period. A 
 
 Stop, write nothing, and say so plainly in two cases:
 
-- **No spec and no ADR at all.** The report would be a reworded change log. Offer `pdlc-init`, which sets the project up to record its decisions.
+- **No spec and no ADR at all.** The report would be a reworded change log. Offer `a-pdlc-init`, which sets the project up to record its decisions.
 - **Nothing to report for this audience in the period.** Give the reason when the records show it — for example, that no feature was marked delivered in the period.
 
 Place each document in the period by the date it carries: an ADR by its Date row, a spec by its "Revised" date. Where git history is at hand, it narrows what is new by comparing the documentation folder at the start and at the end of the period. Without history, say in the report that it was built from documents without history, because what a spec added in the period cannot be told from what it already held.

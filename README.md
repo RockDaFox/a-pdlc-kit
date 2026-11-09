@@ -1,4 +1,4 @@
-# Ag-PDLC Kit
+# A-PDLC Kit
 
 The toolbox of a product team working with AI agents: developers, and the
 roles that write no code — product owners, delivery leads, designers. It
@@ -11,13 +11,13 @@ coding agent. A coding agent has the code, never the reasons: git history
 records what changed, not what was decided or rejected. So settled questions
 get re-opened and rejected options get retried. These skills write the reasons
 down when they exist and hand them back to the next piece of work. Markdown,
-plus one shell script that `/pdlc-init` offers to install as a pre-commit hook.
+plus one shell script that `/a-pdlc-init` offers to install as a pre-commit hook.
 
 ## Install
 
 ```
 /plugin marketplace add git@github.com:RockDaFox/ag-pdlc-kit
-/plugin install ag-pdlc-kit@ag-pdlc-kit
+/plugin install a-pdlc-kit@a-pdlc-kit
 ```
 
 Start a new session afterwards: skills are discovered at session start.
@@ -25,21 +25,21 @@ Start a new session afterwards: skills are discovered at session start.
 ## Use
 
 The first five skills are for developers and run in a coding agent.
-`/pdlc-report` is for anyone on the team, including in an AI assistant such
+`/a-pdlc-report` is for anyone on the team, including in an AI assistant such
 as Claude Cowork.
 
 | Skill | When | You get |
 |---|---|---|
-| `/pdlc-init` | Once, on a repository that has none of this | `AGENTS.md`, `docs/PRODUCT.md`, a list of what needs a human, and on request a hook that refuses a commit carrying an unreviewed AI notice |
-| `/pdlc-feature <description>` | Building something from a loose description | Questions first, then a spec you approve (reviewed first if you ask), then the code and tests |
-| `/pdlc-decide` | A decision that produces no code: a stack, a boundary, reversing an ADR | An ADR, a spec entry, or a line in `AGENTS.md` |
-| `/pdlc-build` | A spec, ticket or bug is ready to build | Test-first implementation and an evidence block |
-| `/pdlc-review [target]` | Before committing; reviews the code by default, or a spec if you name one or when `/pdlc-feature` offers it after writing the spec, with the exact command | Graded findings; you pick which to apply |
-| `/pdlc-report` | Slides, a summary or a status report for a sponsor, the end users or the team | A sourced list to validate, then the report as Markdown, an HTML page or HTML slides |
+| `/a-pdlc-init` | Once, on a repository that has none of this | `AGENTS.md`, `docs/PRODUCT.md`, a list of what needs a human, and on request a hook that refuses a commit carrying an unreviewed AI notice |
+| `/a-pdlc-feature <description>` | Building something from a loose description | Questions first, then a spec you approve (reviewed first if you ask), then the code and tests |
+| `/a-pdlc-decide` | A decision that produces no code: a stack, a boundary, reversing an ADR | An ADR, a spec entry, or a line in `AGENTS.md` |
+| `/a-pdlc-build` | A spec, ticket or bug is ready to build | Test-first implementation and an evidence block |
+| `/a-pdlc-review [target]` | Before committing; reviews the code by default, or a spec if you name one or when `/a-pdlc-feature` offers it after writing the spec, with the exact command | Graded findings; you pick which to apply |
+| `/a-pdlc-report` | Slides, a summary or a status report for a sponsor, the end users or the team | A sourced list to validate, then the report as Markdown, an HTML page or HTML slides |
 
-Typical path: `/pdlc-init` once, then `/pdlc-feature` for each feature, then
-`/pdlc-review` before the commit. `/pdlc-build` already runs inside
-`/pdlc-feature`; call it yourself only when the scope was settled elsewhere.
+Typical path: `/a-pdlc-init` once, then `/a-pdlc-feature` for each feature, then
+`/a-pdlc-review` before the commit. `/a-pdlc-build` already runs inside
+`/a-pdlc-feature`; call it yourself only when the scope was settled elsewhere.
 
 Generated documents end with an AI-assistance notice under an `ai-draft`
 marker. Read the document, then delete both: that is the review.
@@ -60,11 +60,11 @@ one line of `AGENTS.md`.
 
 A repository with an `openspec/` directory at its root keeps its feature specs
 in [OpenSpec](https://github.com/Fission-AI/OpenSpec), and the kit writes
-none under `docs/specs/`. `/pdlc-feature` points to OpenSpec's propose
-command. `/pdlc-build` builds an open change test-first, validates it before
+none under `docs/specs/`. `/a-pdlc-feature` points to OpenSpec's propose
+command. `/a-pdlc-build` builds an open change test-first, validates it before
 and archives it at the commit with the OpenSpec CLI when it is installed.
-`/pdlc-review`, `/pdlc-decide` and `/pdlc-report` read the change.
-`/pdlc-init` offers rules for `openspec/config.yaml` so that each change's
+`/a-pdlc-review`, `/a-pdlc-decide` and `/a-pdlc-report` read the change.
+`/a-pdlc-init` offers rules for `openspec/config.yaml` so that each change's
 `design.md` records rejected alternatives and known gaps. `AGENTS.md`,
 `PRODUCT.md` and the ADRs stay with the kit. A repository can keep the kit's
 own specs by saying so in `AGENTS.md`.
