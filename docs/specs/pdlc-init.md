@@ -1,9 +1,10 @@
 # Spec — a-pdlc-init
 
-> **Status: Shipped**
+> **Status: Draft** — decisions 23 to 31 and lines B21 to B33 (a copy of the
+> skills in the project) are not built yet; everything else is Shipped.
 >
 > Living document: any change to the `a-pdlc-init` skill is reflected here in
-> the same change. Revised 2026-11-05.
+> the same change. Revised 2026-11-09.
 
 ## Summary
 
@@ -129,10 +130,59 @@ thing it offers.
     rules are how OpenSpec itself lets a team shape what it generates. The
     skill neither installs OpenSpec nor suggests it.
 
+23. **The skill offers to copy the kit's skills into the project, so the
+    repository works for a teammate who has not installed the kit.** It asks
+    after the hook and OpenSpec questions, on a first run and on a repository
+    already initialised, and writes nothing before a yes. It is never done by
+    default: the copied files are versioned, so every contributor sees them in
+    review.
+24. **What is copied is `skills/` and nothing else**: the six skills and
+    `_pdlc-shared/`, as siblings. The relative links between them
+    ([ADR-0003](../adr/0003-provider-neutral-skills-layout.md)) then resolve
+    in the copy as they do in the plugin. `AGENTS.md`, `docs/` and the
+    manifests of the kit are not copied.
+25. **The destination is the project skills directory of the host the skill
+    is running in.** `.claude/skills/` for Claude Code, `.github/skills/` for
+    GitHub Copilot, `.vibe/skills/` for Vibe. The hosts do not share one
+    project path: Claude Code reads `.claude/skills/` and not
+    `.agents/skills/`, which Copilot and Vibe do read (checked in each host's
+    documentation on 2026-11-09). The skill names the host it is running in;
+    when it cannot establish it, it asks which directory, and does not guess.
+26. **A copy carries the version it was made from**, in a `version` file
+    inside `_pdlc-shared/`. The manifests stay the only place the version is
+    written in the kit's own tree; the file is part of what the copy writes
+    into a project.
+27. **Running the skill again refreshes the copy, on a yes.** It compares the
+    copy's version with the kit's, says both, and replaces the six skills and
+    `_pdlc-shared/` only. Nothing else in the directory is touched. This is
+    what keeps the copy from freezing a vintage, the failure
+    [ADR-0003](../adr/0003-provider-neutral-skills-layout.md) rejected the
+    idea for.
+28. **A directory with a skill's name that is not the kit's is not
+    overwritten.** The project's own skill is shown and the user decides.
+    A directory is the kit's when `_pdlc-shared/version` exists beside it.
+29. **A copy is not refreshed from itself.** The kit's version comes from the
+    manifest at the root of the installed plugin. A copy has none, so run
+    from a copy the skill says the copy is already in the project and that
+    refreshing is done from an installed plugin.
+30. **The skill copies and does not commit.** Committing the copy is the
+    user's, as for every file the skill writes. It says that the copy is
+    meant to be committed, and that a hand edit to it is lost at the next
+    refresh.
+31. **On a yes to the copy, `AGENTS.md` gains a short pointer to the skills.**
+    Two lines in its Documentation section: where the copy lives, and which
+    skill to use for what — `a-pdlc-feature` for a feature,
+    `a-pdlc-decide` for a decision with no code, `a-pdlc-build`,
+    `a-pdlc-review`, `a-pdlc-report`. `AGENTS.md` is the file every agent
+    reads, and a skill is only used when an agent knows to reach for it. The
+    same yes covers the copy and the lines. Without a copy there is nothing
+    in the repository to point at, so the lines are not written. The line
+    count is measured again, and reported if it passes 150.
+
 ## Behavior
 
 Lines B1 to B15 cover the hook. Lines B16 to B20 cover a repository that
-uses OpenSpec.
+uses OpenSpec. Lines B21 to B33 cover the copy of the skills.
 
 - **B1** — At the end of a first run, or on a repository already initialised:
   the skill asks whether to install the hook, and writes nothing about it
@@ -180,6 +230,37 @@ uses OpenSpec.
 - **B19** — Yes, and the kit's rules are already present: nothing is added
   twice, and the skill says so.
 - **B20** — No `openspec/` at the root: the skill does not mention OpenSpec.
+- **B21** — After the hook and OpenSpec questions: the skill asks whether to
+  copy the skills into the project, and writes nothing there before a yes.
+- **B22** — The user says no: no file in the project changes because of this
+  question.
+- **B23** — Yes, run from Claude Code: the six skills and `_pdlc-shared/` are
+  written under `.claude/skills/`, each skill beside `_pdlc-shared/`. The
+  same under `.github/skills/` from Copilot and `.vibe/skills/` from Vibe.
+- **B24** — Yes, and the skill cannot establish its host: it lists the three
+  directories, asks which, and writes nothing before the answer.
+- **B25** — After a copy, `_pdlc-shared/version` holds the version of the
+  manifest of the plugin the copy was made from.
+- **B26** — The directory already holds the kit, at an older version: the
+  skill says both versions and asks. On a yes, the six skills and
+  `_pdlc-shared/` are replaced, and any other file or skill in the directory
+  is unchanged.
+- **B27** — The directory already holds the kit at the same version: the
+  skill says the copy is up to date and writes nothing.
+- **B28** — A directory with a skill's name exists and `_pdlc-shared/version`
+  does not: that directory is not overwritten, the skill shows it and asks.
+- **B29** — Run from a copy, with no plugin manifest at the root of its tree:
+  the skill does not offer a refresh, and says the copy is already in the
+  project.
+- **B30** — After a copy: the skill states the directory written and the
+  version, that the copy is meant to be committed, and that a hand edit to it
+  is lost at the next refresh. It makes no commit.
+- **B31** — Yes to the copy: the Documentation section of `AGENTS.md` names
+  the directory the copy was written to and the skill to use for a feature,
+  a decision with no code, a build, a review and a report.
+- **B32** — The pointer is already in `AGENTS.md`, as on a refresh: it is not
+  added twice, and no other line of the file changes.
+- **B33** — No to the copy: `AGENTS.md` carries no pointer to the skills.
 
 ## Rejected alternatives
 
@@ -246,6 +327,26 @@ uses OpenSpec.
   documentation bootstrap, and it breaks the tooling that reads them without
   anything in this skill's remit to justify it.
 
+- **Copying the skills into every project by default** — rejected: the
+  copy is versioned and visible to every contributor, and a project that
+  relies on the installed plugin should not gain files it did not ask for.
+- **A command or skill of its own for the copy** — rejected by the user in
+  favour of a question at the end of `a-pdlc-init`, beside the hook.
+- **`.agents/skills/` as the one destination** — chosen first, then dropped
+  once the hosts' documentation was read: Claude Code, the host this kit is
+  built on, does not read it.
+- **A copy in every host's directory** — rejected by the user in favour of
+  detecting the host. Two or three identical copies in a repository can
+  diverge when one is edited by hand.
+- **A symbolic link from `.agents/skills` to `.claude/skills`** — not chosen:
+  links are unreliable on Windows and in some CI checkouts.
+- **A copy that is never refreshed** — rejected: it is the frozen vintage
+  that [ADR-0003](../adr/0003-provider-neutral-skills-layout.md) rejected
+  vendoring for.
+- **A refresh without being asked, or on every run** — rejected: the copy is
+  versioned, so replacing it changes the project's files and is the user's
+  call.
+
 ## Known gaps
 
 | Left out | Add it when |
@@ -263,3 +364,7 @@ uses OpenSpec.
 | Contract recognition is by section heading, so a contract naming those sections differently is merged as ordinary prose | A real repository is met whose contract headings do not match |
 | The AI-notice hook checks `{docs_root}` and `AGENTS.md`, not `openspec/`; OpenSpec writes no notice | A team using OpenSpec asks for its changes to carry the notice |
 | OpenSpec may not follow a configuration rule; nothing checks that a change carries the sections the rules ask for | A change is found without them although the rules are in place |
+| A project with the plugin installed and a copy in the repository lists the skills twice, under two names | A user reports confusion between the plugin's skills and the copy's |
+| Vibe is not covered by the Claude Code manifest's project path: its copy goes under `.vibe/skills/`, from the Vibe documentation and not from a trial | A Vibe user finds the copy is not discovered |
+| Host detection rests on the skill naming its own host, with nothing to check it | A copy is found in the wrong directory |
+| No removal path for a copy | A project wants to stop carrying it |
