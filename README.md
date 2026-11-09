@@ -16,7 +16,7 @@ plus one shell script that `/a-pdlc-init` offers to install as a pre-commit hook
 ## Install
 
 ```
-/plugin marketplace add git@github.com:RockDaFox/ag-pdlc-kit
+/plugin marketplace add git@github.com:RockDaFox/a-pdlc-kit
 /plugin install a-pdlc-kit@a-pdlc-kit
 ```
 
