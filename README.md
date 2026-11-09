@@ -22,6 +22,8 @@ plus one shell script that `/a-pdlc-init` offers to install as a pre-commit hook
 
 Start a new session afterwards: skills are discovered at session start.
 
+To make a repository work for a teammate who has not installed the kit, run `/a-pdlc-init` and say yes to the copy of the skills: it writes them into the project skills directory of your host (`.claude/skills/`, `.github/skills/` or `.vibe/skills/`) for you to commit.
+
 ## Use
 
 The first five skills are for developers and run in a coding agent.

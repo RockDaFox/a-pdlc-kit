@@ -115,7 +115,9 @@ a product change, and shows up in `docs/PRODUCT.md` or an ADR.
   no `.github/` path, no assumption about where the tree is installed.
   Bundled files are reached by paths relative to the skill's own directory —
   that is the one idiom that works on every host
-  ([ADR-0003](docs/adr/0003-provider-neutral-skills-layout.md)).
+  ([ADR-0003](docs/adr/0003-provider-neutral-skills-layout.md)). The one
+  exception is `a-pdlc-init`, which names each host's project skills
+  directory as the place it copies the skills to.
 - **Examples are invented, never borrowed.** No example from a real project
   anywhere under `skills/` — not a domain term, not a table name, not a file
   path. This tree is installed on repositories carrying client context, so a

@@ -1,6 +1,6 @@
 ---
 name: a-pdlc-init
-description: Bootstrap the A-PDLC Kit documentation discipline on an existing repository — writes AGENTS.md and PRODUCT.md by reading the code and the git history, so they describe what is actually delivered rather than what was once intended, and opens an empty decision log that grows from today. Also offers a pre-commit hook that refuses a commit carrying an unreviewed AI-assistance notice and, on a repository that uses OpenSpec, the kit's rules for OpenSpec's configuration — the only things it offers on a repository already initialised. Use when a repo has no product document, no specs and no AGENTS.md, when the user asks to set up, install or initialise A-PDLC Kit on a project, or when they ask for the AI-notice hook.
+description: Bootstrap the A-PDLC Kit documentation discipline on an existing repository — writes AGENTS.md and PRODUCT.md by reading the code and the git history, so they describe what is actually delivered rather than what was once intended, and opens an empty decision log that grows from today. Also offers a pre-commit hook that refuses a commit carrying an unreviewed AI-assistance notice and, on a repository that uses OpenSpec, the kit's rules for OpenSpec's configuration, and a copy of the kit's skills in the project so the repository works without the kit installed — the only things it offers on a repository already initialised. Use when a repo has no product document, no specs and no AGENTS.md, when the user asks to set up, install or initialise A-PDLC Kit on a project, or when they ask for the AI-notice hook.
 ---
 
 # A-PDLC Kit init
@@ -125,8 +125,8 @@ something true to put in them.
 
 At the end of a first run, ask whether to install the AI-notice hook. On a
 repository where `AGENTS.md` and `{docs_root}/PRODUCT.md` already exist, this
-question and the one on OpenSpec's configuration below are all the skill
-offers. Say what the hook does in one
+question and the two below, on OpenSpec's configuration and on a copy of the
+skills, are all the skill offers. Say what the hook does in one
 sentence: a commit that adds the `ai-draft` marker under `{docs_root}` or in
 `AGENTS.md` is refused, so a document an agent drafted cannot be committed
 before someone has read it and removed its notice. Write nothing about the
@@ -156,6 +156,56 @@ known gaps the kit records. Write nothing there before a yes. On a yes, add
 them beside the rules already present and change none of those; rules
 already there are not added twice, and say so. Without an `openspec/`
 directory, do not mention OpenSpec.
+
+## A copy of the skills in the project
+
+After the OpenSpec question — and on a repository already initialised as on a
+first run — ask whether to copy the kit's skills into the repository, so that
+a teammate who has not installed the kit has them too. Say what it does in
+one sentence: the six skills and their shared reference are written under the
+project's skills directory and versioned with the repository, and `AGENTS.md`
+gains two lines saying where they are and which to use. Write nothing before a
+yes; after a no, write nothing and add no line to `AGENTS.md`.
+
+**The kit's version** is the `version` field of a `plugin.json` manifest under
+the root of the tree this skill came from, the directory above `skills/`. A
+tree with no manifest is a copy already made: do not offer the question. Say
+that the copy is already in the project, and that a refresh is made from an
+installed plugin.
+
+**The destination** is the project skills directory of the host this session
+runs in: `.claude/skills/` in Claude Code, `.github/skills/` in GitHub
+Copilot, `.vibe/skills/` in Vibe. The hosts do not share a project path:
+Claude Code reads `.claude/skills/` and not `.agents/skills/`, which the other
+two read. If you cannot tell which host you are in, list the three and ask;
+do not guess.
+
+**What is copied** is each `a-pdlc-*` directory and `_pdlc-shared/` from the
+directory above this skill's own, and nothing else in it, so the relative
+links between them resolve in the copy. Then write the kit's version, alone on
+one line, to `_pdlc-shared/version` in the destination.
+
+Look at the destination first:
+
+- A directory there named like one of the kit's skills, with no
+  `_pdlc-shared/version` beside it, is the project's own. Show it, overwrite
+  nothing, and ask.
+- A `_pdlc-shared/version` equal to the kit's: say the copy is up to date and
+  write nothing.
+- A `_pdlc-shared/version` that differs: say both versions and ask. On a yes,
+  remove the kit's own directories there, the `a-pdlc-*` ones and
+  `_pdlc-shared/`, and copy again. Every other file and skill in the
+  destination stays as it is.
+
+Then add the pointer to the Documentation section of `AGENTS.md`, in the
+documentation language, unless it is already there: where the copy lives, and
+that `a-pdlc-feature` builds a feature, `a-pdlc-decide` records a decision that
+produces no code, and `a-pdlc-build`, `a-pdlc-review` and `a-pdlc-report` do
+what their names say. Change no other line, and measure the file again with
+`wc -l`.
+
+Say what was written, the version, that the copy is meant to be committed,
+and that a hand edit to it is lost at the next refresh. Commit nothing.
 
 ## Finishing
 

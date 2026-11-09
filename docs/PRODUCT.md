@@ -121,9 +121,23 @@ It also offers a pre-commit hook, and installs it only on a yes. The hook
 refuses a commit that adds the `ai-draft` marker under the documentation root
 or in `AGENTS.md`, so a document an agent drafted cannot be committed before a
 human has read it and removed its notice. It is installed per clone, and
-nothing about it is versioned. On a repository already initialised, the hook
-is the only thing the skill offers
+nothing about it is versioned
 ([ADR-0019](adr/0019-the-kit-ships-one-check-that-runs-on-a-documented-repository.md)).
+
+It also offers to copy the kit's skills into the project, and does so only on
+a yes, so a teammate who has not installed the kit has them and the repository
+works on its own. The six skills and the shared reference go to the project
+skills directory of the host the session runs in: `.claude/skills/` for Claude
+Code, `.github/skills/` for GitHub Copilot, `.vibe/skills/` for Vibe. The
+hosts do not share a project path, so the skill names its host and asks when
+it cannot tell. The copy records the version it was made from, and running the
+skill again refreshes it on a yes; a skill of the project's own with a kit
+skill's name is never overwritten. The same yes adds two lines to the
+Documentation section of `AGENTS.md`, saying where the copy is and which skill
+to use for what. Nothing is committed by the skill.
+
+On a repository already initialised, these three offers — the hook, the
+OpenSpec configuration and the copy — are all the skill makes.
 
 ### 3.2 Record a feature's decisions
 
@@ -339,7 +353,9 @@ line. No configuration file is created
 
 The same `skills/` tree serves Claude Code and GitHub Copilot. Nothing in it
 is host-specific: bundled files are reached by paths relative to the skill's
-own directory, and no host-provided variable is used. Both hosts have a plugin
+own directory, and no host-provided variable is used. The one thing it names
+per host is the directory `a-pdlc-init` copies the skills into when the user
+asks for a copy in the project. Both hosts have a plugin
 marketplace and both install the repository whole; only the location of the
 manifest pair differs
 ([ADR-0003](adr/0003-provider-neutral-skills-layout.md)).

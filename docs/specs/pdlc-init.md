@@ -1,7 +1,6 @@
 # Spec — a-pdlc-init
 
-> **Status: Draft** — decisions 23 to 31 and lines B21 to B33 (a copy of the
-> skills in the project) are not built yet; everything else is Shipped.
+> **Status: Shipped**
 >
 > Living document: any change to the `a-pdlc-init` skill is reflected here in
 > the same change. Revised 2026-11-09.
@@ -21,8 +20,9 @@ It runs once per repository. Keeping the documents alive afterwards is
 It also offers a pre-commit hook, installed only if the user agrees. The hook
 refuses a commit that adds an AI-assistance notice to a document, so a
 document an agent drafted cannot be committed before a human has read it and
-removed the notice. On a repository already initialised, the hook is the only
-thing it offers.
+removed the notice. On a repository already initialised it makes three offers
+and no other: the hook, OpenSpec's configuration, and a copy of the skills in
+the project.
 
 ## Decisions
 
@@ -327,6 +327,12 @@ uses OpenSpec. Lines B21 to B33 cover the copy of the skills.
   documentation bootstrap, and it breaks the tooling that reads them without
   anything in this skill's remit to justify it.
 
+- **A test written first for each line B21 to B33** — drafted, and not done
+  in the build: the repository has no test suite and the skill is
+  instructions. Lines B23, B25, B26, B28 and B29 were run by hand, in
+  throwaway directories, by replaying the commands the skill states; B21,
+  B22, B24, B27 and B30 to B33 are what an agent does when it follows the
+  text, and nothing here exercised them.
 - **Copying the skills into every project by default** — rejected: the
   copy is versioned and visible to every contributor, and a project that
   relies on the installed plugin should not gain files it did not ask for.
