@@ -149,6 +149,17 @@ observable results, non-goals, known gaps — and commit it as a draft, **wait f
 spec**, implement against it, then reconcile it with what shipped, in the same
 change as the code.
 
+Which spec the work goes in is one of the open points, every time. A request
+that changes a spec's behavior, reverses one of its decisions or lifts one of
+its non-goals amends that spec rather than starting a second one for the same
+feature; the skill recommends, and the user decides. To find it on a
+repository with many specs, the skill reads no spec one by one: each carries a
+one-line `Covers` in its header, collected by a single search, and a second
+search on what the request touches finds the specs without one. Only the specs
+these turn up are opened. An amended spec
+returns to `Draft` until it is reconciled, with a line naming what is not yet
+shipped.
+
 The value is in the timing, twice over. The clarification round is the only
 moment at which the rejected alternatives still exist: once the feature ships,
 only the surviving option feels real, and any later reconstruction is fiction.

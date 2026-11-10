@@ -2,7 +2,14 @@
 
 > **Status: Draft | Shipped** — <!-- Keep one. `Draft`: the work is authorised
 > and not yet shipped. It becomes `Shipped` when this document is reconciled
-> with the code, in the same change as it. -->
+> with the code, in the same change as it. A `Shipped` spec being amended is
+> `Draft`, followed by one line: what is authorised and not yet shipped, and
+> that the rest is shipped. -->
+>
+> Covers: <!-- One line: what the feature does, and the domain terms a
+> request about it would use, synonyms included. No file names: they go
+> stale at the next rename. It is the line read to find this spec among the
+> others, so it changes whenever the Summary does. -->
 >
 > Living document: any change to <feature> is reflected here in the same
 > change. Revised YYYY-MM-DD.

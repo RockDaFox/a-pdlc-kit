@@ -94,6 +94,20 @@ A spec written before the work and never reconciled documents the plan rather
 than the system, and does it with the authority of a record. The second moment
 is not optional.
 
+**A request that changes what a spec states amends that spec.** It changes
+what a spec states when it alters one of its Behavior lines, reverses one of
+its Decisions, or lifts one of its Non-goals. Lifting a non-goal is the case
+most easily missed: the request reads as a new feature, and it is that spec's
+feature growing. A request that changes nothing an existing spec states gets
+its own spec. Where the answer is not clear, it is a question for the user,
+asked before any spec is written; the spec chosen fixes which feature the
+work belongs to.
+
+An amended `Shipped` spec goes back to `Status: Draft` until it is
+reconciled, with one line after the status naming what is authorised and not
+yet shipped, and stating that the rest is shipped. The whole document reads
+as draft only for as long as the change is in flight.
+
 **A spec is read by two readers — the person who reviews it, and the agent
 that builds from it — so it is written to stay clear and readable for
 both.** The build loop takes each Behavior line as a unit of work, so a

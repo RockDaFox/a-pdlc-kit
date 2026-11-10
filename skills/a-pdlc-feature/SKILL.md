@@ -44,6 +44,12 @@ Read the request in the full context of the repo:
   conventions this feature must follow, and `{docs_root}` if it is named there.
 - `{docs_root}/PRODUCT.md` — what the product already does.
 - `{docs_root}/specs/` — an existing spec for this feature or an adjacent one.
+  Do not read the specs one by one. Collect every spec's `Covers` line with a
+  single search for `^> Covers:` across the directory — that is the index,
+  one line per spec. Then search the specs for the files and symbols the
+  request will touch, and for two or three words of its domain, synonyms
+  included: a spec without a `Covers` line is found this way only. Open in
+  full only the specs these two searches turn up.
 - `{docs_root}/adr/` — structural decisions that already constrain the answer.
 - The code that already does something similar.
 
@@ -61,7 +67,11 @@ forward.
 1. **Read the request.** Do not plan file changes yet.
 2. **List every open point** — anything ambiguous, underspecified, or where
    more than one reasonable implementation exists: behavior, scope, UX, data
-   model, failure modes.
+   model, failure modes. One point is always on the list: which spec the
+   work goes in — an existing spec it amends, named, or a new one, with the
+   specs it borders named. Recommend one, by the test in
+   [`decision-records.md`](../_pdlc-shared/decision-records.md); the user
+   decides.
 3. **Ask, before planning.** Use discrete-choice questions where the options
    are clear, plain text for open-ended points. Batch everything into as few
    rounds as possible; do not trickle questions one at a time.
@@ -108,8 +118,9 @@ migration, it is an ADR; otherwise it belongs in the feature's spec.
 
 **The spec** — `{docs_root}/specs/<feature>.md`, from
 [`../_pdlc-shared/templates/spec.md`](../_pdlc-shared/templates/spec.md)
-when it does not exist yet. Written at step 4, reconciled at step 7; what each
-moment holds is stated in
+when it does not exist yet, and amended in place when step 3 settled that the
+work goes in an existing one. Written at step 4, reconciled at step 7; what
+each moment holds, and the status of an amended spec, are stated in
 [`../_pdlc-shared/decision-records.md`](../_pdlc-shared/decision-records.md):
 
 - The non-goals, one line each.

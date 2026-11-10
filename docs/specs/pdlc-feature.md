@@ -1,10 +1,10 @@
 # Spec — a-pdlc-feature
 
 > **Status: Draft** — decision 18 is authorised and not yet built. Decisions
-> 1 to 17 and 19 are shipped.
+> 1 to 17 and 19 to 22 are shipped.
 >
 > Living document: any change to the `a-pdlc-feature` skill is reflected here in
-> the same change. Revised 2026-11-05.
+> the same change. Revised 2026-11-10.
 
 
 ## Summary
@@ -133,6 +133,27 @@ The routing between spec and ADR is not decided here. It is stated once in
     — reaches OpenSpec through the rules `a-pdlc-init` offers to add to its
     configuration. An ADR the work turns out to warrant goes through
     [`a-pdlc-decide`](pdlc-decide.md).
+20. **Which spec the work goes in is an open point of the question round,
+    every time.** The skill recommends amending a named spec or writing a new
+    one, and the user decides. Left implicit, the choice was made at step 4,
+    after the text was written, and a new spec overlapping an existing one
+    went unnoticed — a risk that grows with the number of specs.
+21. **A request amends the spec whose Behavior, Decisions or Non-goals it
+    changes.** The test is stated in `decision-records.md`, beside the rule
+    that one feature gets one spec, because `a-pdlc-build` already applies a
+    version of it to a `Shipped` spec. Lifting another spec's non-goal is
+    named outright: it is the overlap a reading by feature name misses.
+22. **Each spec carries a one-line `Covers` in its header, and the skill
+    finds specs by searching, never by reading them one by one.** One search
+    for `^> Covers:` returns one line per spec, which is an index built on
+    the fly from the specs themselves and so never out of date. The line
+    holds what the feature does and the domain terms a request would use,
+    never file names, for the reason decision 16 gives. A second
+    search on the files, symbols and domain words of the request, synonyms
+    included, finds the specs written before the line existed. Only the specs
+    the two searches turn up are opened. What is loaded grows with the matches,
+    not with the size of the repository, and a context filled with specs that
+    do not matter also blurs the choice between the ones that do.
 
 ## Behavior
 
@@ -215,6 +236,26 @@ The lines below cover a repository that uses OpenSpec only.
   `openspec/` directory already says it, and a second declaration can
   disagree with it. `AGENTS.md` keeps the opt-out, as it keeps
   `{docs_root}` ([ADR-0002](../adr/0002-docs-root-without-config-file.md)).
+- **An index file listing every spec and what it covers** — rejected: it
+  restates each spec's Summary, a second copy drifts from the first, every
+  skill writing a spec would have to update it, and parallel branches would
+  conflict on it. The `Covers` line gives the same one-line-per-spec read
+  without a second copy.
+- **Reading every spec in full before the question round** — rejected: the
+  cost grows with the repository, which is where the overlap matters most.
+- **Reading the status and Summary at the head of every spec** — rejected:
+  about fifteen lines per spec still grows with the repository, and the
+  `Covers` line gives the same signal in one.
+- **Searching only, with no index line** — rejected: a search finds the words
+  the model thought of, and misses a spec describing the same feature in
+  other words.
+- **Keeping an amended spec `Shipped` and marking its new lines `(draft)`** —
+  rejected: `build-loop.md`, `a-pdlc-review` and `a-pdlc-report` would all
+  have to read the marker, the last restating it since it loads no reference,
+  and a lifted non-goal is a deleted line with nothing to mark. A `Draft`
+  status with one line naming what is not yet shipped was already in use in
+  this repository, and `a-pdlc-report` counts as delivered only the lines a
+  `Shipped` spec added in the period.
 
 ## Known gaps
 
@@ -223,7 +264,8 @@ The lines below cover a repository that uses OpenSpec only.
 | Nothing enforces step 7 if the session ends after implementation | A real session is observed losing its decisions this way |
 | A `Draft` spec left behind by work abandoned after the go-ahead, which nothing removes or flags | Enough of them accumulate for a reader to mistake one for shipped behavior |
 | Nothing verifies that a spec marked `Shipped` was reconciled rather than relabelled | A spec is found claiming `Shipped` while still describing the draft |
-| No detection that the new spec overlaps an existing one | Repositories accumulate enough specs for the overlap to be real |
+| Overlap is found by the model searching, not by a check; a spec with no `Covers` line, or one that names nothing the request touches, is missed | A new spec is found overlapping one that existed when it was written |
+| Nothing checks that a spec carries a `Covers` line, or that it changed with the Summary | A spec is found with a `Covers` line describing what the feature no longer does |
 | No handling of a feature spanning several repositories | A monorepo or a split front/back project needs it |
 | Nothing verifies the regulated-data answer ever arrived, once a spec records the question as unanswered | A spec is found carrying an unanswered escalation long after the feature shipped |
 | The whole flow — question round, recap, go-ahead — runs at the same weight for a one-line change as for a new subsystem | A real session is observed paying the full ceremony on a trivial fix |
