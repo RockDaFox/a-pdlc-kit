@@ -147,7 +147,9 @@ ask in as few rounds as possible, write the spec — decisions taken,
 alternatives rejected with their reason, expected behavior as numbered
 observable results, non-goals, known gaps — and commit it as a draft, **wait for an explicit go-ahead on that
 spec**, implement against it, then reconcile it with what shipped, in the same
-change as the code.
+change as the code. Once the spec is written, the skill asks in one line
+whether to have it reviewed by `a-pdlc-review`, writing out the command with
+the spec's path; nothing runs before the answer, and the user can skip it.
 
 Which spec the work goes in is one of the open points, every time. A request
 that changes a spec's behavior, reverses one of its decisions or lifts one of
@@ -293,6 +295,21 @@ Five behaviors are the point rather than the implementation:
 
 The skill commits nothing. The review ends on a working tree, and the
 commit stays with whoever owns it.
+
+The same skill reviews a spec, when the target is a path under the specs
+directory or the user says it is one. One fresh agent reads it in two passes,
+each through one lens. The business analyst pass reads the spec, `PRODUCT.md`
+and the specs that cover the same ground, and is written out before any code
+is opened; it asks whether the feature is complete and clearly worded for its
+user. The tech lead pass then reads the architecture, the ADRs and the code
+the spec touches, and says whether the behavior can be built in the solution
+as it stands or needs a structural change. The two lists are shown one after
+the other, nothing dropped, regraded or merged, and where the lenses diverge
+neither is preferred: the agent recommends, the user decides. Each finding
+is a wording fix, an open question or a referral. A selected wording fix is
+applied to the spec, an open question goes to the user, and a referral — an
+ADR, a contradiction with another spec — writes nothing. A spec review runs
+no command, edits no file but the spec, and commits nothing.
 
 ### 3.6 Report to readers outside the repository
 

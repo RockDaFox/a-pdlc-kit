@@ -1,7 +1,6 @@
 # Spec — a-pdlc-feature
 
-> **Status: Draft** — decision 18 is authorised and not yet built. Decisions
-> 1 to 17 and 19 to 22 are shipped.
+> **Status: Shipped**
 >
 > Living document: any change to the `a-pdlc-feature` skill is reflected here in
 > the same change. Revised 2026-11-10.
@@ -108,7 +107,7 @@ The routing between spec and ADR is not decided here. It is stated once in
     ([ADR-0017](../adr/0017-a-spec-states-its-behavior-as-testable-lines.md)).
 18. **After writing the spec, the skill asks whether to launch a review of it,
     and the user can skip.** The review is [`a-pdlc-review`](pdlc-review.md) on
-    the spec, read by two fresh agents. It runs only on a yes, and nothing runs
+    the spec, read by one fresh agent in two passes. It runs only on a yes, and nothing runs
     before the answer. On a yes, the findings are relayed as returned, the open
     questions go back to the user as step 3 questions, and the wording fixes
     the user selects are applied to the draft. The go-ahead at step 5 is then
@@ -171,7 +170,7 @@ The lines below cover a repository that uses OpenSpec only.
 ## Rejected alternatives
 
 - **Running the spec review on every spec, without asking** — rejected: it
-  adds two agents' reading to a one-line change, which the known gap on
+  adds a fresh agent's reading to a one-line change, which the known gap on
   ceremony weight already names, and it makes the review a gate people skip
   by writing thinner specs.
 - **Never mentioning the spec review** — rejected: a review nobody is

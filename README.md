@@ -33,10 +33,10 @@ as Claude Cowork.
 | Skill | When | You get |
 |---|---|---|
 | `/a-pdlc-init` | Once, on a repository that has none of this | `AGENTS.md`, `docs/PRODUCT.md`, a list of what needs a human, and on request a hook that refuses a commit carrying an unreviewed AI notice |
-| `/a-pdlc-feature <description>` | Building something from a loose description | Questions first, then a spec you approve (reviewed first if you ask), then the code and tests |
+| `/a-pdlc-feature <description>` | Building something from a loose description | Questions first, including whether an existing spec is amended or a new one written, then a spec you approve (reviewed first if you ask), then the code and tests |
 | `/a-pdlc-decide` | A decision that produces no code: a stack, a boundary, reversing an ADR | An ADR, a spec entry, or a line in `AGENTS.md` |
 | `/a-pdlc-build` | A spec, ticket or bug is ready to build | Test-first implementation and an evidence block |
-| `/a-pdlc-review [target]` | Before committing; reviews the code by default, or a spec if you name one or when `/a-pdlc-feature` offers it after writing the spec, with the exact command | Graded findings; you pick which to apply |
+| `/a-pdlc-review [target]` | Before committing; reviews the code by default, or a spec if you name one or when `/a-pdlc-feature` offers it after writing the spec, with the exact command | Graded findings; you pick which to apply. A spec is read in two passes, business then technical, the first before any code is opened |
 | `/a-pdlc-report` | Slides, a summary or a status report for a sponsor, the end users or the team | A sourced list to validate, then the report as Markdown, an HTML page or HTML slides |
 
 Typical path: `/a-pdlc-init` once, then `/a-pdlc-feature` for each feature, then
@@ -53,7 +53,7 @@ marker. Read the document, then delete both: that is the review.
 | `AGENTS.md` | How the repo is written — commands, conventions, traps. |
 | `docs/PRODUCT.md` | What the product does, and why, as delivered. |
 | `docs/adr/` | Structural decisions. Dated, append-only, superseded rather than rewritten. |
-| `docs/specs/` | A feature's decisions, rejected alternatives and known gaps. Living. |
+| `docs/specs/` | A feature's decisions, rejected alternatives and known gaps. Living: one spec per feature, amended rather than duplicated, found by its one-line `Covers`. |
 
 The docs root defaults to `docs/`; a repository that uses another says so in
 one line of `AGENTS.md`.

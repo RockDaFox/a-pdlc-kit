@@ -87,6 +87,16 @@ forward.
    [`doc-discipline.md`](../_pdlc-shared/doc-discipline.md) state, and report
    the line count. `Status: Draft`. Say in one line whether an ADR looks
    warranted, and do not write it yet.
+
+   Then ask, in one line, whether to launch a review of the spec, writing
+   out the exact command with the spec's own path — for instance
+   `/a-pdlc-review docs/specs/<feature>.md` — so the user sees the target
+   and can run it by hand. Nothing runs before the answer. On a yes, run
+   [`a-pdlc-review`](../a-pdlc-review/SKILL.md) with that path as its
+   explicit target: relay its findings as returned, put its open questions
+   to the user as step 3 questions, and apply to the draft the wording fixes
+   the user selects. On a no, go straight to step 5. Either way, the
+   go-ahead is given on the spec as it then stands.
 5. **Wait for an explicit go-ahead on the spec, then commit it.** What is
    being approved is the spec, not a summary of it. No commit and no code
    before the answer — the draft sits in the working tree, unreviewed, until

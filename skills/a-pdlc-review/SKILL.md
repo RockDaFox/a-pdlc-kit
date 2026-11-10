@@ -1,6 +1,6 @@
 ---
 name: a-pdlc-review
-description: Review a change the way an experienced tech lead would — code quality, the repository's own conventions, correct use of the libraries in play, readability and maintainability for a human, whether the change stayed inside what its spec authorised, and whether its tests assert what the spec states. Reads the change in an agent independent of the one that built it, and reports findings graded blocking, to fix and detail, asks which ones to apply, applies only those, then runs the repository's own checks. Invoked on demand, on the uncommitted working tree or on a target given. Use when a change is ready to be looked over before it is committed, or when the user invokes /a-pdlc-review.
+description: Review a change or a spec. A change is reviewed the way an experienced tech lead would — code quality, the repository's own conventions, correct use of the libraries in play, readability and maintainability for a human, whether the change stayed inside what its spec authorised, and whether its tests assert what the spec states — by an agent independent of the one that built it, then the selected corrections are applied and the repository's own checks run. A spec is read by one fresh agent in two passes — as business analyst first, without reading any code, then as tech lead — and the two lists are shown together, unmerged. Findings are graded blocking, to fix and detail, and only those the user selects are applied. Invoked on demand, on the uncommitted working tree or on a target given; a path under the specs directory is reviewed as a spec. Use when a change is ready to be looked over before it is committed, when a spec is ready to be looked over before its go-ahead, or when the user invokes /a-pdlc-review.
 ---
 
 # Review a change
@@ -10,6 +10,18 @@ A review is worth what it refuses to say. Asked to look at a diff, a model will 
 Read [`doc-discipline.md`](../_pdlc-shared/doc-discipline.md) first: it resolves `{docs_root}` and holds the routing test, which the last step needs. Read [`build-loop.md`](../_pdlc-shared/build-loop.md) later, and only once the user has selected something — that file is what applies the corrections, and a review the user closes without selecting any has no use for it.
 
 This skill is invoked on demand, and nothing calls it automatically: [`a-pdlc-build`](../a-pdlc-build/SKILL.md) ends on its own evidence block and its own ask, and a review before that commit is the user's decision to make, not a gate the kit imposes. The relation runs the other way round — a review does not sit inside the loop, it reaches into it once the user has chosen what to correct.
+
+## Code or a spec
+
+The target is code unless it is a spec. A path under `{docs_root}/specs/`, or a file the user says is a spec, is a spec. Any other path, a branch, a range and the working tree are code. Given no target, review the uncommitted working tree as code, and never infer a spec from it. [`a-pdlc-feature`](../a-pdlc-feature/SKILL.md) names the spec's path when it launches this review, and never relies on the default.
+
+Stop before anything runs in three cases:
+
+- **The path does not exist, or the file is not a spec** — it has no `Status` in its header. Say which, and run nothing.
+- **The user says "the spec" and no file matches, or several do.** Ask for the path.
+- **A range holds both code and spec changes.** Ask which to review.
+
+A spec is reviewed as [Reviewing a spec](#reviewing-a-spec) states, at the end of this file; the sections between here and there are the review of code. An OpenSpec change is not taken as a spec target: say so, and offer the review of code instead.
 
 ## Who reads the change
 
@@ -78,3 +90,79 @@ Report the loop's evidence block, then what was declined and where it was record
 This skill commits nothing. The review ends on a working tree, and the commit stays with whoever owns it: `a-pdlc-build`'s own ask, `a-pdlc-feature`'s step 7, or the user directly.
 
 Remind the user that the findings and any Known gaps entry written here were AI-drafted and need review before they are treated as authoritative.
+
+## Reviewing a spec
+
+A spec is read by one fresh agent in two passes, each through one lens: the business analyst first, then the tech lead. It is read against what the repository has already decided, not against code conventions, so the conventions and libraries axes do not apply.
+
+The order is the point. The business analyst pass is written out in full before any code, ADR or architecture is opened: a model that has read the code judges the spec by how the code works, and nothing read can be taken back out of its context. The tech lead pass comes after, reads what it needs, and does not revise the first list.
+
+Start the agent, a subagent where the host offers one. Give it the spec's path, the blocks from [Both lenses](#both-lenses) to [Tech lead lens](#tech-lead-lens) in that order, and the resolved path of [`decision-records.md`](../_pdlc-shared/decision-records.md), because an excerpt of this file carries no base directory for a relative link — nothing else: not the request, not the conversation, not a summary of the spec. It reads and reports; it edits nothing and runs nothing.
+
+Where the host cannot start an agent, a session that wrote or discussed the spec says so and asks the user to run this review in a new session. A session with no memory of the spec makes the two passes itself, in the same order.
+
+### Both lenses
+
+Read the spec in full. Name at the start which of your sources the repository does not have, such as an empty `adr/`.
+
+A difference from `PRODUCT.md`, another spec or the code that the spec announces as a change — new behavior, or the supersession of a decision — is not a finding. A spec with no Behavior section, or one that is empty or unnumbered, is reported as such, and no lines are written for it. Whether the feature should exist is not yours to judge: the user settled it before the spec was written.
+
+Each finding fits on one line: the place it cites — a Behavior line, a decision or a section — what is wrong, and what the correction would be. Number the findings. Each carries a grade:
+
+- **Blocking** — you recommend against approving the spec in this state.
+- **To fix** — it should change, and the change can wait for a decision.
+- **Detail** — it is worth one line and nothing more.
+
+And a kind:
+
+- **Wording fix** — a correction to the text, written out.
+- **Open question** — a choice the spec leaves open, for the user to make.
+- **Other** — named: an ADR to write, a contradiction with another spec.
+
+A finding is a recommendation, and the grade is the weight you recommend. State no verdict on the spec: the user decides. If you find nothing, say "no findings" and name the sources you read.
+
+### Business analyst lens
+
+This is the first pass. Read the spec, `{docs_root}/PRODUCT.md`, and the other specs that cover the same ground: collect every spec's `Covers` line with one search for `^> Covers:`, search the specs for this one's domain terms, and open those that turn up. Read no code, no ADR and no architecture until this pass is written out, so that how the system happens to work does not lead you. A finding of this pass cites none of them.
+
+Stay on the functional side: what the feature does for its user, and whether that is complete and clearly worded. Do not judge how it is built; a doubt about that is reported as a recommendation like any other. Ask:
+
+- Does the spec state what the user sees and can do, with the empty and error states?
+- Is each rule complete, with no case left to guess?
+- Does a word allow two readings?
+- Is a functional decision implied and not written?
+- Does a non-goal contradict a behavior or a decision?
+- Does anything contradict `PRODUCT.md` or another spec, beyond what the spec announces as a change?
+
+### Tech lead lens
+
+This is the second pass, made once the first is written out; leave the first list as it stands. Read the Architecture section of `AGENTS.md`, the ADRs under `{docs_root}/adr/`, `decision-records.md` at the path you were given, and the code the spec touches. Find that code from the spec's prose and from the architecture, because a spec lists no files. A spec for new behavior has no code yet: check it against the structures it would extend, and say so if it names none.
+
+Take the functional behavior as given, and do not re-judge the functional choices; a functional doubt is reported as such, as a recommendation. Open this pass with one line: whether the functional behavior can be built in the solution as it stands, or needs a structural change, naming the structure that would change — or that the spec names no existing structure. Then ask:
+
+- Does it fit the architecture and contradict no ADR?
+- Is each Behavior line a result a test can assert from outside?
+- Is a structural decision hidden, or does a decision pass the ADR tests in `decision-records.md` and so call for an ADR?
+- Does the spec disagree with what the code does today, beyond what it announces as a change?
+
+### The report
+
+Relay the two lists one after the other, the business analyst's first, the numbering running on across both, each finding tagged with its lens and kept as returned. Drop, regrade, reword or merge none: deciding that two findings are one point rewrites them. Where a finding cites the same place in the spec as an earlier one, add "same place as N" — a match on the citation, never on a reading of the two sentences.
+
+Where the lenses diverge, show both at equal weight. Prefer neither, mark neither as right, and offer no tie-break. State no verdict: a blocking finding does not stop the go-ahead, and the user can apply, decline or ignore any finding.
+
+Name the sources each pass lacked, and say that the conventions and libraries axes were skipped. An agent that fails, or returns one pass without the other, is reported as such, the review is not presented as done, and a rerun is offered. A pass that finds nothing is reported as "no findings", with its lens and the sources it read.
+
+### After the spec review
+
+Ask which findings to apply, and edit nothing before the answer.
+
+- **A selected wording fix** is applied to the spec.
+- **A selected open question** is put to the user, and this skill settles nothing. The answer is written into the spec as a decision, with the rejected options if the user gave them.
+- **A selected finding of another kind** is referred, and nothing is written: an ADR to [`a-pdlc-decide`](../a-pdlc-decide/SKILL.md), a contradiction with another spec to the user.
+
+Edit no file other than the reviewed spec. A spec has no code to change and no test to fail, so a spec review reads no `build-loop.md`, runs no git or repository command, and commits nothing. In the `a-pdlc-feature` flow, the revised draft is committed at that skill's step 5, after the go-ahead on it.
+
+A declined finding graded blocking or to fix, and an open question the user does not answer, go into the spec's Known gaps, with a condition you propose and the user can correct. A declined detail leaves nothing.
+
+Close by stating what was applied, what went to Known gaps, and which open questions remain. Remind the user that the findings and anything written into the spec were AI-drafted and need review before they are treated as authoritative.
