@@ -111,6 +111,15 @@ check_manifests() {
 	done
 
 	agree "$_cc_p" "$_gh_p" version
+
+	# The changelog's newest entry is the version the manifests carry:
+	# bump-version.sh writes both in one run, so a gap means one was undone.
+	if [ -f CHANGELOG.md ]; then
+		_top=$(sed -n 's/^## \([0-9][0-9.]*\) .*/\1/p' CHANGELOG.md | head -1)
+		_ver=$(field "$_cc_p" version)
+		[ "$_top" = "$_ver" ] ||
+			echo "CHANGELOG.md  newest entry is \"$_top\", $_cc_p says \"$_ver\""
+	fi
 	agree "$_cc_p" "$_gh_p" description
 	agree "$_cc_m" "$_gh_m" description
 	agree "$_cc_m" "$_gh_m" description plugins
