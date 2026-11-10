@@ -1,8 +1,8 @@
 # Changelog
 
 What changed for someone using the kit, newest first. Dates are those of the
-version bump. `scripts/bump-version.sh` opens each entry; it is edited before
-the commit. The reasons are in [`docs/adr/`](docs/adr/) and
+version bump. Each entry is written with the bump, in the same commit. The
+reasons are in [`docs/adr/`](docs/adr/) and
 [`docs/specs/`](docs/specs/).
 
 ## 1.1.0 — 2026-11-10
